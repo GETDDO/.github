@@ -133,8 +133,13 @@ try {
     await page.waitForSelector('.slide-tech');
     const text = await page.locator('.slide').innerText();
     assert.match(text, track === 'backend' ? /Java/ : /팀 선택 확인 후/);
+    if (track === 'backend') {
+      assert.match(text, /MySQL/);
+      assert.match(text, /Redis/);
+      assert.doesNotMatch(text, /JUnit/);
+    }
     assert.equal(await page.locator('.content-card').count(), 0);
-    assert.equal(await page.locator('.tech-entry img').count(), track === 'backend' ? 6 : 4);
+    assert.equal(await page.locator('.tech-entry img').count(), track === 'backend' ? 7 : 4);
     await page.waitForFunction(() => [...document.querySelectorAll('.tech-entry img')].every(img => img.complete && img.naturalWidth > 0));
   }
   pass('both tech-stack agenda links, verified backend and pending frontend');

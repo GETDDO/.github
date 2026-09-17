@@ -39,3 +39,6 @@ Frontend game concept added with takoyaki as an unconfirmed candidate, proposed 
 
 ## Icon-based technology layout
 Replaced technology cards with a dedicated white-background logo/name/version/role list and a separate notes column. Backend uses bundled Devicon/Simple Icons with licenses; pending frontend technologies use project-authored category icons. Verified icon loads, no colored cards, no content/footer overlaps and all 13 browser checks.
+
+## MySQL and Redis selection
+Added bundled MySQL and Redis logos and removed JUnit from the presentation. Database versions and Redis usage remain pending. Compact seven-entry layout verified visually; all 13 browser checks passed. Backend dependencies unchanged.

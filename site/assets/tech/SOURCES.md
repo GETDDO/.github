@@ -2,11 +2,12 @@
 
 Downloaded on 2026-09-17 and bundled locally; no runtime CDN dependency.
 
-- Java, Spring, Gradle and JUnit: [Devicon](https://github.com/devicons/devicon), MIT license in `DEVICON-LICENSE.txt`.
+- Java, Spring, Gradle, MySQL and Redis: [Devicon](https://github.com/devicons/devicon), MIT license in `DEVICON-LICENSE.txt`.
   - https://github.com/devicons/devicon/blob/master/icons/java/java-original.svg
   - https://github.com/devicons/devicon/blob/master/icons/spring/spring-original.svg
   - https://github.com/devicons/devicon/blob/master/icons/gradle/gradle-original.svg
-  - https://github.com/devicons/devicon/blob/master/icons/junit/junit-original.svg
+  - https://github.com/devicons/devicon/blob/master/icons/mysql/mysql-original.svg
+  - https://github.com/devicons/devicon/blob/master/icons/redis/redis-original.svg
 - Flyway: [Simple Icons](https://github.com/simple-icons/simple-icons/blob/develop/icons/flyway.svg), CC0 license in `SIMPLE-ICONS-LICENSE.md`.
 - `code.svg`, `layers.svg`, `game.svg`, `tools.svg`: project-authored category illustrations for unselected frontend technologies, not product logos.
 

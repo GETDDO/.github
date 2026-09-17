@@ -90,22 +90,23 @@ const makeBackendSlides = () => [
   ...commonSlides.slice(2, 5),
   {
     type: 'tech', title: '기술 스택', label: '02 / TECH STACK',
-    description: '언어 · 서버 · 데이터 접근 · 빌드 및 테스트',
+    description: '언어 · 서버 · 데이터 저장 · 빌드',
     items: [
       { icon: 'java', name: 'Java', version: '21', role: '서버 개발 언어' },
       { icon: 'spring', name: 'Spring Boot', version: '4.1.1', role: 'Spring MVC · Validation' },
+      { icon: 'mysql', name: 'MySQL', role: '관계형 데이터베이스' },
+      { icon: 'redis', name: 'Redis', role: '도입 예정 · 적용 용도 추가 예정' },
       { icon: 'spring', name: 'Spring Data JPA', role: '데이터 접근' },
       { icon: 'flyway', name: 'Flyway', role: 'DB 스키마 변경 관리' },
       { icon: 'gradle', name: 'Gradle', version: '9.7.1', role: '멀티모듈 빌드' },
-      { icon: 'junit', name: 'JUnit Platform', role: 'Spring Boot Test 연동' },
     ],
     notesTitle: '확인할 항목',
     notes: [
-      { title: '데이터베이스', text: '제품 · 버전 추가 예정' },
+      { title: 'MySQL · Redis', text: '사용 기술 확정 · 버전 및 Redis 적용 범위 추가 예정' },
       { title: '배포·외부 연동', text: 'Docker · HTTPS · 객체 저장소는 요구사항. 실제 구성 추가 예정.' },
       { title: '선택 근거', text: '기술 선택 이유 · 대안 비교 추가 예정' },
     ],
-    footnote: '백엔드 저장소 설정 기준 · Spring 계열은 공통 로고 사용 · 도입·실행 검증 결과 아님',
+    footnote: 'MySQL·Redis는 팀 선택 반영 · 나머지 버전은 저장소 설정 기준 · 실제 연동 완료 여부는 별도 확인',
   },
   {
     type: 'image', title: '시스템 아키텍처', label: '03 / ARCHITECTURE',

@@ -1623,3 +1623,7 @@ kbd {
 .tech-layout.is-pending .tech-entry { min-height:164px; }
 .tech-layout.is-pending .tech-name h2 { font-size:22px; }
 .tech-layout.is-pending .tech-entry img { width:48px; height:48px; }
+
+.tech-layout.is-dense .tech-entry { min-height:88px; padding:12px 0; }
+.tech-layout.is-dense .tech-entry img { width:48px; height:48px; }
+.tech-layout.is-dense .tech-name h2 { font-size:21px; }
