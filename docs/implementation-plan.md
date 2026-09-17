@@ -30,3 +30,6 @@ Top-level agenda: requirements, architecture, questions. Events, tickets and adm
 
 ## Backend ERD placeholder
 Added backend-only ERD image placeholder after architecture, with its own agenda entry. Frontend remains 8 slides; backend has 9. Shared cover and requirement content unchanged. Empty source renders a placeholder without a broken image; README documents adding the final asset. All 17 slides and 11 browser checks passed.
+
+## Backend mentoring context
+Backend expanded to 14 slides with overview, requirement-based scope/scale, status placeholders, entry and draw/publication flows, validation targets and focused questions. System architecture and ERD remain empty image placeholders. Implementation status, detailed design, schedule and measured results explicitly pending. Frontend data verified unchanged. All 22 slides and 11 browser checks passed.
