@@ -7,14 +7,18 @@ import { chromium } from 'playwright';
 import { rounds } from '../site/content.js';
 
 const { frontend, backend } = rounds[0].decks;
-assert.deepEqual(frontend.slides.slice(0, 5), backend.slides.slice(0, 5));
+assert.deepEqual(frontend.slides[0], backend.slides[0]);
+assert.deepEqual(frontend.slides.slice(2, 5), backend.slides.slice(2, 5));
+assert.equal(frontend.slides.some(slide => slide.title === 'ERD'), false);
+assert.equal(backend.slides[6].title, 'ERD');
+assert.equal(backend.slides[6].src, '');
 assert.deepEqual(frontend.slides.slice(2, 5).map(slide => slide.title), ['이벤트', '응모권', '관리자']);
 for (const deck of [frontend, backend]) {
-  assert.deepEqual(deck.slides[1].items.map(item => item.title), ['요구사항', '아키텍처', '질문']);
+  assert.deepEqual(deck.slides[1].items.map(item => item.title), deck === frontend ? ['요구사항', '아키텍처', '질문'] : ['요구사항', '아키텍처', 'ERD', '질문']);
   assert.equal(deck.slides.at(-1).title, '감사합니다');
   assert.equal(deck.slides.at(-1).type, 'ending');
   assert.equal(deck.slides[deck.slides[1].items[1].target].type, 'architecture');
-  assert.equal(deck.slides[deck.slides[1].items[2].target].type, 'questions');
+  assert.equal(deck.slides[deck.slides[1].items.at(-1).target].type, 'questions');
 }
 console.log('PASS shared cover/agenda/requirements, event/ticket/admin sections, agenda destinations');
 
@@ -85,7 +89,7 @@ try {
   await page.waitForFunction(() => !document.fullscreenElement);
   pass('native fullscreen stays active on slide change and exits by button');
   for (const track of ['frontend', 'backend']) {
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= rounds[0].decks[track].slides.length; i++) {
       await page.goto(`${base}#/mentoring/1/${track}/${i}`);
       await page.waitForSelector('.slide');
       await page.evaluate(() => document.fonts.ready);
@@ -103,7 +107,15 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /백엔드/);
-  pass('all 16 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all 17 slides fit canvas without footer overlap; deep links survive reload');
+  await page.goto(`${base}#/mentoring/1/backend/2`);
+  await page.locator('.agenda-item').nth(2).click();
+  await page.waitForSelector('.image-placeholder');
+  assert.match(await page.locator('.slide').innerText(), /ERD 작성 예정/);
+  assert.equal(await page.locator('.image-layout img').count(), 0);
+  await page.keyboard.press('ArrowRight');
+  await page.waitForSelector('.slide-questions');
+  pass('backend ERD agenda link and placeholder, then questions');
   for (const hash of ['#/mentoring/2/frontend/1', '#/mentoring/3/backend/1', '#/broken']) {
     await page.goto(base + hash);
     await page.waitForSelector('.notice');
@@ -111,7 +123,7 @@ try {
   }
   await page.goto(`${base}#/mentoring/1/backend/999`);
   await page.waitForSelector('.slide-ending');
-  assert.match(page.url(), /backend\/8$/);
+  assert.match(page.url(), /backend\/9$/);
   pass('locked/invalid links handled, out-of-range page canonicalized');
   for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
     await page.setViewportSize(viewport);

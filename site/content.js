@@ -54,7 +54,14 @@ const commonSlides = [
 const makeSlides = (track) => {
   const frontend = track === 'frontend';
   return [
-    ...commonSlides,
+    ...commonSlides.map(slide => !frontend && slide.type === 'agenda' ? {
+      ...slide, shared: false,
+      items: [
+        ...slide.items.slice(0, 2),
+        { title: 'ERD', description: '테이블 및 관계', target: 6 },
+        { ...slide.items[2], target: 7 },
+      ],
+    } : slide),
     {
       type: 'architecture', title: '아키텍처',
       label: '02 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
@@ -77,8 +84,15 @@ const makeSlides = (track) => {
         ['검증 목표', '마감 집중 100 RPS · 응모 p95 1초 이하'],
       ],
     },
+    ...(!frontend ? [{
+      type: 'image', title: 'ERD', label: '03 / ERD',
+      description: '테이블 및 관계',
+      // ERD 완성 후 site/assets/에 이미지를 넣고 src 지정. 예: 'assets/erd.svg'
+      src: '', alt: 'GETDDO 백엔드 ERD', placeholder: 'ERD 작성 예정',
+      caption: '',
+    }] : []),
     {
-      type: 'questions', title: '질문', label: '03 / QUESTIONS',
+      type: 'questions', title: '질문', label: frontend ? '03 / QUESTIONS' : '04 / QUESTIONS',
       description: '정책 및 구현 관련 확인 사항',
       questions: frontend ? [
         '응모·결과 확인 화면의 필수 상태와 안내 범위?',

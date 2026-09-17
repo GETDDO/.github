@@ -27,3 +27,6 @@ Replaced promotional copy with short headings and feature descriptions. Shared s
 
 ## Agenda and closing update
 Top-level agenda: requirements, architecture, questions. Events, tickets and admin remain requirement subsections. Added a shared thank-you closing slide to both tracks (8 slides each). Browser checks passed for all 16 slides and final-page navigation.
+
+## Backend ERD placeholder
+Added backend-only ERD image placeholder after architecture, with its own agenda entry. Frontend remains 8 slides; backend has 9. Shared cover and requirement content unchanged. Empty source renders a placeholder without a broken image; README documents adding the final asset. All 17 slides and 11 browser checks passed.

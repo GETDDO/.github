@@ -58,6 +58,7 @@ function renderBody(slide) {
     case 'split': return `<div class="split-layout">${(slide.columns || []).map(column => `<article><span class="eyebrow">${escape(column.label)}</span><h2>${escape(column.title)}</h2>${(column.paragraphs || []).map(p => `<p>${lines(p)}</p>`).join('')}</article>`).join('')}</div>`;
     case 'image': {
       const source = String(slide.src || '');
+      if (!source) return `<div class="image-placeholder"><span>${escape(slide.title)}</span><p>${escape(slide.placeholder || '이미지 작성 예정')}</p></div>`;
       const safeSource = /^(assets\/|https:\/\/)/.test(source) ? source : '';
       return `<figure class="image-layout"><img src="${escape(safeSource)}" alt="${escape(slide.alt || slide.title)}"><figcaption>${escape(slide.caption || '')}</figcaption></figure>`;
     }
