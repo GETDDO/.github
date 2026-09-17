@@ -7,13 +7,13 @@ import { chromium } from 'playwright';
 import { rounds } from '../site/content.js';
 
 const { frontend, backend } = rounds[0].decks;
-assert.deepEqual(frontend.slides.slice(0, 4), backend.slides.slice(0, 4));
-assert.equal(frontend.slides.slice(2, 4).flatMap(slide => slide.cards).length, 7);
+assert.deepEqual(frontend.slides.slice(0, 5), backend.slides.slice(0, 5));
+assert.deepEqual(frontend.slides.slice(2, 5).map(slide => slide.title), ['이벤트', '응모권', '관리자']);
 for (const deck of [frontend, backend]) {
-  assert.equal(deck.slides[deck.slides[1].items[1].target].type, 'architecture');
-  assert.equal(deck.slides[deck.slides[1].items[2].target].type, 'questions');
+  assert.equal(deck.slides[deck.slides[1].items[3].target].type, 'architecture');
+  assert.equal(deck.slides[deck.slides[1].items[4].target].type, 'questions');
 }
-console.log('PASS shared cover/agenda/requirements, seven feature groups, agenda destinations');
+console.log('PASS shared cover/agenda/requirements, event/ticket/admin sections, agenda destinations');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../site');
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
@@ -60,12 +60,12 @@ try {
   await page.waitForSelector('.slide-agenda');
   await page.locator('.agenda-item').first().click();
   await page.waitForSelector('.slide-cards');
-  assert.match(await page.locator('.slide').innerText(), /출석·미션·게임/);
+  assert.match(await page.locator('.slide').innerText(), /지정 시각에 모집/);
   await page.keyboard.press('End');
   await page.waitForSelector('.slide-questions');
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.keyboard.press('ArrowRight');
-  assert.match(page.url(), /frontend\/6$/);
+  assert.match(page.url(), /frontend\/7$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   await page.locator('[data-action=next]').click();
@@ -82,7 +82,7 @@ try {
   await page.waitForFunction(() => !document.fullscreenElement);
   pass('native fullscreen stays active on slide change and exits by button');
   for (const track of ['frontend', 'backend']) {
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 7; i++) {
       await page.goto(`${base}#/mentoring/1/${track}/${i}`);
       await page.waitForSelector('.slide');
       await page.evaluate(() => document.fonts.ready);
@@ -100,7 +100,7 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /백엔드/);
-  pass('all 12 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all 14 slides fit canvas without footer overlap; deep links survive reload');
   for (const hash of ['#/mentoring/2/frontend/1', '#/mentoring/3/backend/1', '#/broken']) {
     await page.goto(base + hash);
     await page.waitForSelector('.notice');
@@ -108,7 +108,7 @@ try {
   }
   await page.goto(`${base}#/mentoring/1/backend/999`);
   await page.waitForSelector('.slide-questions');
-  assert.match(page.url(), /backend\/6$/);
+  assert.match(page.url(), /backend\/7$/);
   pass('locked/invalid links handled, out-of-range page canonicalized');
   for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
     await page.setViewportSize(viewport);

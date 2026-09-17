@@ -21,3 +21,6 @@ Source committed and pushed to GETDDO/.github main. On 2026-09-17, the user appr
 
 ## Shared requirements update
 Cover, agenda and two requirement slides share one data source across tracks. Seven high-level feature groups use the 2026-09-17 requirements snapshot. Architecture and questions remain track-specific. Verified shared data equality, seven groups, agenda destinations and all browser checks.
+
+## Presentation copy revision
+Replaced promotional copy with short headings and feature descriptions. Shared sections: cover, agenda, events, tickets, admin. Events describe ticket-free entries, scheduled ticket-based enrollment, weights and prize configurations. Five agenda destinations; seven slides per track.

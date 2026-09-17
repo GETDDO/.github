@@ -1564,3 +1564,8 @@ kbd {
   font-size:11px;
   padding-top:10px;
 }
+
+.agenda-list.compact { margin-top:20px; }
+.compact .agenda-item { padding:16px 18px; }
+.compact .agenda-item>strong { font-size:23px; }
+.ticket-front>strong { font-size:35px; }
