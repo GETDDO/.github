@@ -100,7 +100,7 @@ frontend: {
 
 워크플로는 `site/`만 업로드합니다. 메인 파일, 폰트, 원본 색상표 및 요구사항 스냅샷은 이 배포 폴더에 포함됩니다. 발표 자료와 요구사항 링크가 사이트 방문자에게 제공됩니다.
 
-현재 확인된 저장소 상태는 **private / Pages 미설정**입니다. 비공개 조직 저장소의 Pages 사용에는 지원 요금제가 필요할 수 있습니다. 저장소 공개 전환은 별도 결정이며 이 템플릿을 배포하기 위해 자동으로 바꾸지 않습니다. 실제 배포 성공 여부는 Actions 결과와 게시 주소에서 확인하세요.
+현재 확인된 저장소 상태는 **private / Pages 미설정**입니다. 2026-09-17 Pages 설정 API가 `Your current plan does not support GitHub Pages for this repository` (HTTP 422)로 거절됐습니다. 현재 요금제로 이 비공개 저장소의 Pages를 사용할 수 없어 웹 게시가 완료되지 않았습니다. 저장소 공개 전환 또는 지원 요금제로의 변경이 필요합니다. 저장소 공개 전환은 별도 결정이며 이 템플릿을 배포하기 위해 자동으로 바꾸지 않습니다. 실제 배포 성공 여부는 Actions 결과와 게시 주소에서 확인하세요.
 
 참고: [GitHub Pages 공식 안내](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
 
