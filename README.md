@@ -15,7 +15,7 @@ python3 -m http.server 4173 --directory site
 ## 화면 구성
 
 - 메인: 1·2·3차 멘토링 → 프론트엔드 / 백엔드 선택
-- 1차: 트랙별 표지 · 목차 · 요구사항 · 아키텍처 · 질문, 각 5장
+- 1차: 공통 표지 · 목차 · 요구사항 2장 → 트랙별 아키텍처 · 질문, 각 6장
 - 2·3차: 준비 중, 링크 및 직접 URL 접근 비활성화
 - 발표: 좌측 슬라이드 목록, 이전/다음, 전체 화면, 현재 슬라이드 주소 공유
 - 방향키 / Page Up·Down / Space: 이동, Home·End: 첫 장·마지막 장
@@ -24,7 +24,7 @@ python3 -m http.server 4173 --directory site
 
 ## 내용 편집
 
-`site/content.js`의 `rounds` → 차수 → `decks.frontend` 또는 `decks.backend` → `slides`를 편집합니다. 현재 1차 공통 구조는 `makeSlides(track)`에 있으며 트랙별 내용은 그 안에서 분기합니다. 표지의 차수 라벨도 내용 데이터입니다.
+`site/content.js`의 `rounds` → 차수 → `decks.frontend` 또는 `decks.backend` → `slides`를 편집합니다. 표지·목차·요구사항은 `commonSlides`에서 함께 관리하며, `makeSlides(track)`의 아키텍처·질문부터 트랙별 내용으로 분기합니다. 표지의 차수 라벨도 내용 데이터입니다.
 
 슬라이드를 추가하려면 `slides` 배열에 객체를 추가합니다. 개수와 번호, 진행률, 좌측 목록은 자동 반영됩니다. 목차는 의도한 흐름을 유지하도록 `items`를 직접 편집하며 `target`은 **0부터 시작하는 슬라이드 인덱스**입니다.
 
@@ -41,7 +41,7 @@ python3 -m http.server 4173 --directory site
 | `split` | `title`, `columns: [{label, title, paragraphs: ['문단']}]` |
 | `image` | `title`, `src: 'assets/diagram.svg'`, `alt`, `caption` |
 
-공통 선택 속성은 `label`, `description`, `footnote`입니다. `title`의 `\n`은 줄바꿈으로 표시됩니다. 모든 본문은 일반 텍스트로 취급하며 HTML을 넣지 않습니다. 이미지 경로는 `assets/` 아래 또는 `https://` 주소만 지원합니다. 카드 3개, 아키텍처 노드 3개, 질문 3개, 비교 2열을 기준으로 설계했습니다. 내용이 길면 여러 장으로 나누세요.
+공통 선택 속성은 `label`, `description`, `footnote`입니다. `title`의 `\n`은 줄바꿈으로 표시됩니다. 모든 본문은 일반 텍스트로 취급하며 HTML을 넣지 않습니다. 이미지 경로는 `assets/` 아래 또는 `https://` 주소만 지원합니다. 카드 3개 또는 4개(2×2), 아키텍처 노드 3개, 질문 3개, 비교 2열을 기준으로 설계했습니다. 내용이 길면 여러 장으로 나누세요.
 
 예: 비교 장 추가
 
@@ -86,7 +86,7 @@ frontend: {
 - 원본 로고의 U+ 마젠타는 유지합니다.
 - 원본 파일: `site/assets/logo.svg`, `site/assets/colors.svg`
 - Pretendard Variable과 SIL OFL 라이선스: `site/assets/`
-- `site/requirements.md`: 제공받은 요구사항 스냅샷(문서의 최신화 표기는 2026-09-16)
+- `site/requirements.md`: 제공받은 요구사항 스냅샷(문서의 최신화 표기는 2026-09-17)
 - 내용은 요약 예시입니다. 아키텍처는 **설계 논의용 템플릿**이며 실제 구현 상태를 의미하지 않습니다.
 - 요구사항 원문에 시간대·관리자 응모권 회수 범위·발표 시점 등의 상충/미정 항목이 남아 있습니다. 발표 전 팀이 확정한 정책으로 내용을 갱신하세요.
 
