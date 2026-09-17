@@ -1569,3 +1569,16 @@ kbd {
 .compact .agenda-item { padding:16px 18px; }
 .compact .agenda-item>strong { font-size:23px; }
 .ticket-front>strong { font-size:35px; }
+
+.slide-ending { background:var(--mint-soft); }
+.slide-ending .slide-content {
+  height:475px;
+  margin-top:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.ending-copy h1 { font-size:80px; letter-spacing:-3px; }
+.ending-copy p { font-size:20px; color:var(--mint-dark); margin-top:24px; }
+.mini-ending { background:var(--mint-soft); }

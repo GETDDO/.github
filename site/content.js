@@ -14,15 +14,13 @@ const commonSlides = [
   {
     type: 'agenda', shared: true, title: '목차', label: 'CONTENTS', description: '',
     items: [
-      { title: '이벤트', description: '이벤트 유형 · 모집 시간 · 응모 방식', target: 2 },
-      { title: '응모권', description: '획득 · 차감 · 만료 · 반환', target: 3 },
-      { title: '관리자', description: '이벤트 운영 · 추첨 · 어뷰징 검토', target: 4 },
+      { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 2 },
       { title: '아키텍처', description: '구성 및 연동', target: 5 },
       { title: '질문', description: '확인할 정책과 설계', target: 6 },
     ],
   },
   {
-    type: 'cards', shared: true, title: '이벤트', label: '01 / EVENTS',
+    type: 'cards', shared: true, title: '이벤트', label: '01 / REQUIREMENTS · 이벤트',
     description: '응모권 미사용 이벤트 / 지정 시각에 모집하는 응모권 사용 이벤트',
     cards: [
       { label: '01', title: '응모권 미사용', text: '응모 기간 내 사용자당 1회 응모. 응모권 차감 없이 이벤트 자체에 응모. 마감·검토 후 관리자 수동 추첨.', tag: '응모권 0장 · 사용자당 1회', tone: 'mint' },
@@ -32,7 +30,7 @@ const commonSlides = [
     footnote: '응모자 수·차감 응모권 수 자동 갱신 · 관리자 승인 후 결과 발표 · 자동 추첨 시 미검토 건 처리 정책은 미정',
   },
   {
-    type: 'cards', shared: true, title: '응모권', label: '02 / TICKETS',
+    type: 'cards', shared: true, title: '응모권', label: '01 / REQUIREMENTS · 응모권',
     description: '이벤트 공통 응모권 · 보유량 및 지급·차감 이력 조회',
     cards: [
       { label: '01', title: '획득', text: '출석: 하루 1장. 일회성 미션: 설문·퀴즈·연속 출석. 게임: 하루 1회 1장 보상.', tag: '주간 미션 보류', tone: 'mint' },
@@ -42,7 +40,7 @@ const commonSlides = [
     footnote: '게임 일일 보상의 전체 합산·게임별 기준 미정 · 부정 획득 응모권은 별도 회수 정책 적용',
   },
   {
-    type: 'cards', shared: true, title: '관리자', label: '03 / ADMIN',
+    type: 'cards', shared: true, title: '관리자', label: '01 / REQUIREMENTS · 관리자',
     description: '이벤트·보상 운영, 추첨 결과 관리 및 어뷰징 검토',
     cards: [
       { label: '01', title: '운영 관리', text: '이벤트·경품·응모 조건 설정. 출석·미션·게임 보상 관리. 배너 등록·수정·삭제. 이벤트 중단·재개·취소.', tag: '중단: 일시 정지 / 취소: 최종 종료', tone: 'mint' },
@@ -59,7 +57,7 @@ const makeSlides = (track) => {
     ...commonSlides,
     {
       type: 'architecture', title: '아키텍처',
-      label: '04 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
+      label: '02 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
       nodes: frontend ? [
         { title: '사용자 화면', subtitle: '이벤트 · 출석 · 게임', detail: '화면 / 컴포넌트' },
         { title: '상태 & 요청', subtitle: '로딩 · 성공 · 오류', detail: '상태 관리 / API 연동' },
@@ -80,7 +78,7 @@ const makeSlides = (track) => {
       ],
     },
     {
-      type: 'questions', title: '질문', label: '05 / QUESTIONS',
+      type: 'questions', title: '질문', label: '03 / QUESTIONS',
       description: '정책 및 구현 관련 확인 사항',
       questions: frontend ? [
         '응모·결과 확인 화면의 필수 상태와 안내 범위?',
@@ -92,6 +90,10 @@ const makeSlides = (track) => {
         '자동 추첨 시 미검토 탐지 건 및 월 경계 반환 처리?',
       ],
       footnote: '논의 항목 초안',
+    },
+    {
+      type: 'ending', shared: true, title: '감사합니다', label: 'GETDDO',
+      description: '1차 멘토링',
     },
   ];
 };

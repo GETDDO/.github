@@ -15,7 +15,7 @@ python3 -m http.server 4173 --directory site
 ## 화면 구성
 
 - 메인: 1·2·3차 멘토링 → 프론트엔드 / 백엔드 선택
-- 1차: 공통 표지 · 목차 · 이벤트 · 응모권 · 관리자 → 트랙별 아키텍처 · 질문, 각 7장
+- 1차: 공통 표지 · 목차 · 이벤트 · 응모권 · 관리자 → 트랙별 아키텍처 · 질문 → 공통 감사합니다, 각 8장
 - 2·3차: 준비 중, 링크 및 직접 URL 접근 비활성화
 - 발표: 좌측 슬라이드 목록, 이전/다음, 전체 화면, 현재 슬라이드 주소 공유
 - 방향키 / Page Up·Down / Space: 이동, Home·End: 첫 장·마지막 장
@@ -32,6 +32,7 @@ python3 -m http.server 4173 --directory site
 
 | type | 필수 내용 |
 | --- | --- |
+| `ending` | `title`, `description` (감사합니다 등 마무리) |
 | `cover` | `title`, `description`, `tags: ['키워드']` |
 | `agenda` | `title`, `items: [{title, description, target: 2}]` |
 | `cards` | `title`, `cards: [{label, title, text, tag, tone: 'mint'}]` |
@@ -80,7 +81,7 @@ frontend: {
 
 ## 디자인과 요구사항
 
-- 발표 구성: **이벤트 · 응모권 · 관리자**
+- 목차: **요구사항 → 아키텍처 → 질문**. 요구사항 세부 페이지: 이벤트 · 응모권 · 관리자. 마지막은 감사합니다 페이지.
 - 브랜드: `#1FBE8E`, 소프트 민트 `#E8FAF3`
 - 응모권: 오렌지 `#FF5A2D`, 노랑 `#FFC83D`
 - 원본 로고의 U+ 마젠타는 유지합니다.

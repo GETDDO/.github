@@ -24,3 +24,6 @@ Cover, agenda and two requirement slides share one data source across tracks. Se
 
 ## Presentation copy revision
 Replaced promotional copy with short headings and feature descriptions. Shared sections: cover, agenda, events, tickets, admin. Events describe ticket-free entries, scheduled ticket-based enrollment, weights and prize configurations. Five agenda destinations; seven slides per track.
+
+## Agenda and closing update
+Top-level agenda: requirements, architecture, questions. Events, tickets and admin remain requirement subsections. Added a shared thank-you closing slide to both tracks (8 slides each). Browser checks passed for all 16 slides and final-page navigation.
