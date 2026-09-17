@@ -18,12 +18,14 @@ for (const title of ['시스템 아키텍처', 'ERD']) {
 assert.equal(backend.slides.find(slide => slide.title === '검증 계획').type, 'cards');
 assert.deepEqual(frontend.slides.slice(2, 5).map(slide => slide.title), ['이벤트', '응모권', '관리자']);
 for (const deck of [frontend, backend]) {
-  assert.deepEqual(deck.slides[1].items.map(item => item.title), deck === frontend ? ['요구사항', '아키텍처', '질문'] : ['프로젝트 개요', '요구사항', '시스템 아키텍처', 'ERD', '핵심 처리 흐름', '검증 계획', '질문']);
+  assert.deepEqual(deck.slides[1].items.map(item => item.title), deck === frontend ? ['요구사항', '게임 컨셉', '기술 스택', '아키텍처', '질문'] : ['프로젝트 개요', '요구사항', '기술 스택', '시스템 아키텍처', 'ERD', '핵심 처리 흐름', '검증 계획', '질문']);
   assert.equal(deck.slides.at(-1).title, '감사합니다');
   assert.equal(deck.slides.at(-1).type, 'ending');
   for (const item of deck.slides[1].items) {
     assert.ok(deck.slides[item.target], `Missing agenda target: ${item.title}`);
   }
+  const stack = deck.slides[1].items.find(item => item.title === '기술 스택');
+  assert.equal(deck.slides[stack.target].title, '기술 스택');
   const arch = deck.slides[1].items.find(item => item.title.includes('아키텍처'));
   assert.equal(deck.slides[arch.target].type, deck === frontend ? 'architecture' : 'image');
   assert.equal(deck.slides[deck.slides[1].items.at(-1).target].type, 'questions');
@@ -80,7 +82,7 @@ try {
   await page.waitForSelector('.slide-ending');
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.keyboard.press('ArrowRight');
-  assert.match(page.url(), /frontend\/8$/);
+  assert.match(page.url(), /frontend\/10$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   await page.locator('[data-action=next]').click();
@@ -88,6 +90,15 @@ try {
   await page.goBack();
   await page.waitForSelector('.slide-cover');
   pass('frontend navigation, agenda links, first/last limits, browser Back');
+  await page.goto(`${base}#/mentoring/1/frontend/2`);
+  await page.locator('.agenda-item').filter({ hasText: '게임 컨셉' }).click();
+  await page.waitForSelector('.slide-cards');
+  assert.equal(await page.locator('.slide-heading h1').innerText(), '게임 컨셉');
+  assert.match(await page.locator('.slide').innerText(), /후보 · 확정 게임 아님/);
+  assert.match(await page.locator('.slide').innerText(), /추가 예정/);
+  await page.goto(`${base}#/mentoring/1/frontend/1`);
+  await page.waitForSelector('.slide-cover');
+  pass('frontend game concept linked with candidate and pending labels');
   await page.locator('.deck-header [data-action=fullscreen]').click();
   await page.waitForFunction(() => Boolean(document.fullscreenElement));
   await page.keyboard.press('ArrowRight');
@@ -115,7 +126,15 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /백엔드/);
-  pass('all 22 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all 25 slides fit canvas without footer overlap; deep links survive reload');
+  for (const track of ['frontend', 'backend']) {
+    await page.goto(`${base}#/mentoring/1/${track}/2`);
+    await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
+    await page.waitForSelector('.slide-cards');
+    const text = await page.locator('.slide').innerText();
+    assert.match(text, track === 'backend' ? /Java 21/ : /팀 선택 확인 후 추가 예정/);
+  }
+  pass('both tech-stack agenda links, verified backend and pending frontend');
   await page.goto(`${base}#/mentoring/1/backend/2`);
   await page.locator('.agenda-item').filter({ hasText: 'ERD' }).click();
   await page.waitForSelector('.image-placeholder');
@@ -132,7 +151,7 @@ try {
   }
   await page.goto(`${base}#/mentoring/1/backend/999`);
   await page.waitForSelector('.slide-ending');
-  assert.match(page.url(), /backend\/14$/);
+  assert.match(page.url(), /backend\/15$/);
   pass('locked/invalid links handled, out-of-range page canonicalized');
   for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
     await page.setViewportSize(viewport);

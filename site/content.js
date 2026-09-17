@@ -59,11 +59,12 @@ const makeBackendSlides = () => [
     items: [
       { title: '프로젝트 개요', description: '범위 · 목표 규모 · 진행 상태', target: 2 },
       { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 4 },
-      { title: '시스템 아키텍처', description: '구성도 추가 예정', target: 7 },
-      { title: 'ERD', description: '테이블 및 관계 추가 예정', target: 8 },
-      { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 9 },
-      { title: '검증 계획', description: '정합성 · 부하 · 예외 상황', target: 11 },
-      { title: '질문', description: '설계 검토 및 정책 확인', target: 12 },
+      { title: '기술 스택', description: '설정 파일 기준 · 미정 항목', target: 7 },
+      { title: '시스템 아키텍처', description: '구성도 추가 예정', target: 8 },
+      { title: 'ERD', description: '테이블 및 관계 추가 예정', target: 9 },
+      { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 10 },
+      { title: '검증 계획', description: '정합성 · 부하 · 예외 상황', target: 12 },
+      { title: '질문', description: '설계 검토 및 정책 확인', target: 13 },
     ],
   },
   {
@@ -88,19 +89,30 @@ const makeBackendSlides = () => [
   },
   ...commonSlides.slice(2, 5),
   {
-    type: 'image', title: '시스템 아키텍처', label: '02 / ARCHITECTURE',
+    type: 'cards', title: '기술 스택', label: '02 / TECH STACK',
+    description: '백엔드 설정 파일 기준 · 기술별 선택 이유 추가 예정',
+    cards: [
+      { label: 'SERVER', title: '언어·서버', text: 'Java 21 · Spring Boot 4.1.1. Spring MVC 기반 API, Validation 의존성 설정.', tag: 'build.gradle · api/build.gradle', tone: 'mint' },
+      { label: 'DATA', title: '데이터 접근', text: 'Spring Data JPA · Flyway 의존성 설정. DB 제품·버전과 연결 구성은 추가 예정.', tag: 'storage/db/build.gradle 기준', tone: 'yellow' },
+      { label: 'BUILD & TEST', title: '빌드·테스트', text: 'Gradle 9.7.1 · api/core/storage:db 멀티모듈. Spring Boot Test · JUnit Platform 설정.', tag: '빌드·테스트 실행 결과 추가 예정', tone: 'pink' },
+      { label: 'DEPLOYMENT', title: '배포·외부 연동', text: '요구사항: Docker · HTTPS · 객체 저장소. 실제 배포 환경과 제품 선택, 연동 구성 추가 예정.', tag: '실제 도입 완료 여부 미확인', tone: 'mint' },
+    ],
+    footnote: '버전은 로컬 저장소 설정값 · 실행 환경 검증이나 구현 완료를 의미하지 않음',
+  },
+  {
+    type: 'image', title: '시스템 아키텍처', label: '03 / ARCHITECTURE',
     description: '프론트 · 백엔드 · DB · 이미지 저장소 · 알림 처리 연결 구성',
     src: '', alt: 'GETDDO 시스템 아키텍처', placeholder: '시스템 아키텍처 추가 예정', caption: '',
     footnote: '기술 스택, 구성요소별 역할, 통신 방식 및 선택 이유 추가 예정',
   },
   {
-    type: 'image', title: 'ERD', label: '03 / ERD', description: '주요 테이블 및 관계',
+    type: 'image', title: 'ERD', label: '04 / ERD', description: '주요 테이블 및 관계',
     // 완성한 이미지를 site/assets/에 넣고 src 지정. 예: 'assets/erd.svg'
     src: '', alt: 'GETDDO 백엔드 ERD', placeholder: 'ERD 추가 예정', caption: '',
     footnote: '응모권 잔액·이력, 응모, 추첨 실행·결과, 반환·회수의 연결 구조 검토 예정',
   },
   {
-    type: 'architecture', title: '응모 처리 흐름', label: '04 / ENTRY FLOW',
+    type: 'architecture', title: '응모 처리 흐름', label: '05 / ENTRY FLOW',
     description: '요구사항 기준 · 상세 처리 순서와 동시성 제어 방식 추가 예정',
     nodes: [
       { title: '접수 조건', subtitle: '응모 자격 · 모집 기간', detail: '멤버십 · 횟수 제한 · 중복 요청' },
@@ -115,7 +127,7 @@ const makeBackendSlides = () => [
     footnote: '실제 호출 순서도·트랜잭션 범위·실패 시 처리 상세 추가 예정',
   },
   {
-    type: 'architecture', title: '추첨·결과 발표 흐름', label: '04 / DRAW FLOW',
+    type: 'architecture', title: '추첨·결과 발표 흐름', label: '05 / DRAW FLOW',
     description: '추첨 결과 확정과 사용자에게 결과를 공개하는 시점 구분',
     nodes: [
       { title: '마감·대상 확정', subtitle: '유효 응모 · 제외 결과 반영', detail: '추첨 대상 및 조건 스냅샷 보관' },
@@ -130,7 +142,7 @@ const makeBackendSlides = () => [
     footnote: '추첨 알고리즘·가중치 공식·재추첨 후보 및 상세 처리 구조 추가 예정',
   },
   {
-    type: 'cards', title: '검증 계획', label: '05 / VALIDATION',
+    type: 'cards', title: '검증 계획', label: '06 / VALIDATION',
     description: '요구사항의 합격 기준 · 테스트 구현 및 측정 결과 추가 예정',
     cards: [
       { label: 'CONSISTENCY', title: '정합성', text: '같은 사용자의 동시 응모와 중복 요청. 출석·보상 중복 지급, 초과 차감, 추첨 결과 중복 확정 여부 확인.', tag: '정합성 오류 0건 목표', tone: 'mint' },
@@ -140,7 +152,7 @@ const makeBackendSlides = () => [
     footnote: '목표 수치이며 달성 결과 아님 · 정책상 정상 거절은 시스템 오류와 구분',
   },
   {
-    type: 'questions', title: '질문', label: '06 / QUESTIONS',
+    type: 'questions', title: '질문', label: '07 / QUESTIONS',
     description: '요구사항의 초기 방안을 기준으로 검토할 항목',
     questions: [
       'DB 트랜잭션·유일 제약·조건부 차감 방안에서 중복 요청과 동시 응모에 빠진 정합성 조건은?',
@@ -155,10 +167,41 @@ const makeBackendSlides = () => [
 const makeSlides = (track) => {
   if (track === 'backend') return makeBackendSlides();
   return [
-    ...commonSlides,
+    ...commonSlides.map(slide => slide.type === 'agenda' ? {
+      ...slide, shared: false,
+      items: [
+        slide.items[0],
+        { title: '게임 컨셉', description: '게임 후보 · 플레이 흐름 · 보상', target: 5 },
+        { title: '기술 스택', description: '언어 · 화면 · 상태 · 도구', target: 6 },
+        { ...slide.items[1], target: 7 },
+        { ...slide.items[2], target: 8 },
+      ],
+    } : slide),
+    {
+      type: 'cards', title: '게임 컨셉', label: '02 / GAME CONCEPT',
+      description: '게임 종류는 미확정 · 후보와 화면 흐름 검토',
+      cards: [
+        { label: 'CONCEPT', title: '타코야끼 만들기', text: '요구사항에 나온 게임 후보. 조작 방식, 성공·실패 조건, 제한 시간과 난이도는 추가 예정.', tag: '후보 · 확정 게임 아님', tone: 'mint' },
+        { label: 'PLAY FLOW', title: '플레이 흐름', text: '게임 선택 → 규칙 안내 → 플레이 → 점수 확인 → 보상 확인. 화면 흐름 초안이며 세부 규칙은 미정.', tag: '플레이 횟수 제한 없음', tone: 'yellow' },
+        { label: 'REWARD', title: '점수·보상', text: '점수는 서버 판정. 개인 최고점·누적 점수 보관. 하루 1회 응모권 1장 보상, 획득 조건과 적용 단위는 미정.', tag: '전체 게임 합산·게임별 기준 확인 필요', tone: 'pink' },
+        { label: 'SCREEN', title: '화면·연동', text: '플레이 화면, 조작 안내, 결과·재도전 화면 추가 예정. 이탈·중복 결과 제출·오류 시 처리 방식 검토.', tag: '와이어프레임 · 디자인 · API 연동 추가 예정', tone: 'mint' },
+      ],
+      footnote: '멘토링 확인: 조작·난이도 범위, 점수 검증 및 클라이언트·서버 역할, 플레이 중 이탈·재시도 처리',
+    },
+    {
+      type: 'cards', title: '기술 스택', label: '03 / TECH STACK',
+      description: '프론트 저장소에 기술 설정 미등록 · 팀 선택 확인 후 추가 예정',
+      cards: [
+        { label: 'FOUNDATION', title: '언어·프레임워크', text: '개발 언어, UI 프레임워크, 라우팅 방식과 버전.', tag: '추가 예정', tone: 'mint' },
+        { label: 'STATE & API', title: '상태·API 연동', text: '화면 상태, 서버 데이터 관리, HTTP 요청과 실시간 현황 갱신 방식.', tag: '추가 예정', tone: 'yellow' },
+        { label: 'UI & GAME', title: '스타일·게임', text: '스타일링 방식, 공통 UI, 게임 화면 렌더링과 입력 처리 기술.', tag: '추가 예정', tone: 'pink' },
+        { label: 'TOOLING', title: '빌드·테스트·배포', text: '패키지 관리, 빌드 도구, 테스트 도구, 정적 검사 및 배포 환경.', tag: '추가 예정', tone: 'mint' },
+      ],
+      footnote: 'GETDDO/getddo-fe main에는 README만 존재 · 멘토링 확인: 선택 이유, 대안, 게임 구현과의 적합성',
+    },
     {
       type: 'architecture', title: '아키텍처',
-      label: '02 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
+      label: '04 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
       nodes: [
         { title: '사용자 화면', subtitle: '이벤트 · 출석 · 게임', detail: '화면 / 컴포넌트' },
         { title: '상태 & 요청', subtitle: '로딩 · 성공 · 오류', detail: '상태 관리 / API 연동' },
@@ -171,7 +214,7 @@ const makeSlides = (track) => {
       ],
     },
     {
-      type: 'questions', title: '질문', label: '03 / QUESTIONS',
+      type: 'questions', title: '질문', label: '05 / QUESTIONS',
       description: '정책 및 구현 관련 확인 사항',
       questions: [
         '응모·결과 확인 화면의 필수 상태와 안내 범위?',

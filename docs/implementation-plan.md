@@ -33,3 +33,6 @@ Added backend-only ERD image placeholder after architecture, with its own agenda
 
 ## Backend mentoring context
 Backend expanded to 14 slides with overview, requirement-based scope/scale, status placeholders, entry and draw/publication flows, validation targets and focused questions. System architecture and ERD remain empty image placeholders. Implementation status, detailed design, schedule and measured results explicitly pending. Frontend data verified unchanged. All 22 slides and 11 browser checks passed.
+
+## Game concept and technology stacks
+Frontend game concept added with takoyaki as an unconfirmed candidate, proposed play flow and pending rules/screens. Both tracks now include technology stacks. Backend values read from local Gradle configuration; frontend main contains only README, so choices are pending. Frontend 10 slides, backend 15; all 25 slides and 13 browser checks passed.
