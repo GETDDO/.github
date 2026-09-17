@@ -1,0 +1,186 @@
+import { rounds, tracks } from './content.js';
+
+const app = document.querySelector('#app');
+const escape = (value = '') => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const lines = value => escape(value).replaceAll('\n', '<br>');
+const number = value => String(value).padStart(2, '0');
+const available = deck => deck?.enabled && deck.slides?.length > 0;
+const route = (round, track, index = 0) => `#/mentoring/${round}/${track}/${index + 1}`;
+const logo = '<img src="assets/logo.svg" alt="U+ GETDDO" width="137" height="36">';
+let current = null;
+let overviewOpen = false;
+
+function ticketArt() {
+  return `<div class="ticket-art" aria-hidden="true">
+    <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+    <span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✦</span>
+    <div class="ticket ticket-back"><span>YOUR NEXT CHANCE</span><b>또, 새로운 기회.</b></div>
+    <div class="ticket ticket-front"><div class="ticket-top"><span>GETDDO</span><span>ADMIT ONE ↗</span></div>
+    <strong>GET<br><span>YOUR</span> CHANCE.</strong><div class="ticket-bottom"><span>작은 참여, 커다란 설렘.</span><span class="barcode"></span></div></div>
+    <span class="art-label">EVERY DAY, A NEW CHANCE.</span>
+  </div>`;
+}
+
+function home(message = '') {
+  current = null;
+  overviewOpen = false;
+  document.title = 'GETDDO — Mentoring Studio';
+  document.body.classList.remove('presenting');
+  app.innerHTML = `<div class="home-shell">
+    <header class="site-header"><a class="brand" href="#/" aria-label="GETDDO 홈">${logo}<span class="brand-divider"></span><span class="brand-caption">MENTORING STUDIO</span></a><span class="header-note"><i></i> 함께 만드는 다음 기회</span></header>
+    <main id="main" tabindex="-1">
+      ${message ? `<p class="notice" role="alert">${escape(message)}</p>` : ''}
+      <section class="hero"><div class="hero-copy"><span class="eyebrow"><span class="tiny-star">✳</span> LITTLE MOMENTS. BIG POSSIBILITIES.</span>
+        <h1>매일의 참여가<br><span class="mint-word">기회</span>가 되는 곳<span class="title-dot">.</span></h1>
+        <p>작은 참여를 모아, 새로운 설렘으로.<br>GETDDO의 생각과 성장을 함께 나누는 공간입니다.</p>
+        <a class="hero-cta" href="#sessions">우리의 여정 살펴보기 <span>↘</span></a>
+        <div class="hero-keywords"><span>참여의 즐거움</span><span>공정한 기회</span><span>함께하는 성장</span></div>
+      </div>${ticketArt()}</section>
+      <section class="sessions" id="sessions" aria-labelledby="sessions-title"><div class="section-heading"><div><span class="eyebrow">OUR JOURNEY</span><h2 id="sessions-title">한 걸음씩, 더 나은 GETDDO</h2></div><p>멘토링을 선택하고, 우리의 이야기를 만나보세요.</p></div>
+      <div class="round-grid">${rounds.map(round => {
+        const ready = Object.values(round.decks).some(available);
+        return `<article class="round-card ${ready ? 'ready' : ''}"><div class="round-top"><span class="round-number">${number(round.id)}</span><span class="status ${ready ? 'open' : ''}">${ready ? '<i></i> 발표 자료' : '준비 중'}</span></div><span class="round-stage">${escape(round.stage)}</span><h3>${escape(round.title)}</h3><h4>${escape(round.subtitle)}</h4><p>${escape(round.description)}</p><div class="track-links">${Object.entries(tracks).map(([key, track]) => available(round.decks[key]) ? `<a href="${route(round.id, key)}"><span class="track-icon">${key === 'frontend' ? '〈/〉' : '{ }'}</span><span>${track.name}<small>${track.english}</small></span><span class="link-arrow">↗</span></a>` : `<button disabled aria-label="${round.title} ${track.name} 준비 중"><span class="track-icon">${key === 'frontend' ? '〈/〉' : '{ }'}</span><span>${track.name}<small>${track.english}</small></span><span class="lock-icon" aria-hidden="true">⌑</span></button>`).join('')}</div><div class="round-footer">${ready ? '첫 번째 이야기가 시작됩니다.' : '발표 자료가 준비되면 열립니다.'}</div></article>`;
+      }).join('')}</div></section>
+      <section class="concept-strip"><span class="concept-mark" aria-hidden="true">✳</span><div><span class="eyebrow">THE GETDDO WAY</span><p>참여는 즐겁게. 기회는 공정하게. 결과는 투명하게.</p></div><span class="concept-end">GET A CHANCE.<br>DO IT AGAIN.</span></section>
+    </main><footer class="site-footer"><span>© GETDDO TEAM <span class="footer-dot">·</span> 작은 참여, 새로운 가능성.</span><a href="requirements.md" target="_blank" rel="noopener">서비스 요구사항 ↗</a></footer>
+  </div>`;
+}
+
+function renderBody(slide) {
+  switch (slide.type) {
+    case 'cover': return `<div class="cover-copy"><h1>${lines(slide.title)}</h1><p>${lines(slide.description)}</p><div class="slide-tags">${(slide.tags || []).map(tag => `<span>${escape(tag)}</span>`).join('')}</div></div>${ticketArt()}`;
+    case 'agenda': return `<div class="agenda-list">${slide.items.map((item, i) => `<button class="agenda-item" data-goto="${item.target}"><span>${number(i + 1)}</span><strong>${escape(item.title)}</strong><p>${escape(item.description)}</p><b aria-hidden="true">↗</b></button>`).join('')}</div>`;
+    case 'cards': return `<div class="content-card-grid">${slide.cards.map(card => `<article class="content-card ${['mint', 'yellow', 'pink'].includes(card.tone) ? card.tone : 'mint'}"><span class="eyebrow">${escape(card.label)}</span><h2>${escape(card.title)}</h2><p>${escape(card.text)}</p><span class="card-tag">${escape(card.tag)}</span></article>`).join('')}</div>`;
+    case 'architecture': return `<div class="architecture-flow">${slide.nodes.map((node, i) => `${i ? '<span class="flow-arrow" aria-hidden="true">→</span>' : ''}<article class="arch-node"><span class="node-number">${number(i + 1)}</span><h2>${escape(node.title)}</h2><p>${escape(node.subtitle)}</p><span>${escape(node.detail)}</span></article>`).join('')}</div><div class="architecture-notes">${slide.notes.map(([label, text]) => `<div><strong>${escape(label)}</strong><p>${escape(text)}</p></div>`).join('')}</div>`;
+    case 'questions': return `<div class="questions-layout"><div><span class="question-mark" aria-hidden="true">Q<span>&</span>A</span><p>${escape(slide.description)}</p></div><ol class="question-list">${slide.questions.map((question, i) => `<li><span>${number(i + 1)}</span><p>${escape(question)}</p></li>`).join('')}</ol></div>`;
+    case 'text': return `<div class="text-layout">${(slide.paragraphs || []).map(p => `<p>${lines(p)}</p>`).join('')}${slide.bullets ? `<ul>${slide.bullets.map(p => `<li>${escape(p)}</li>`).join('')}</ul>` : ''}</div>`;
+    case 'split': return `<div class="split-layout">${(slide.columns || []).map(column => `<article><span class="eyebrow">${escape(column.label)}</span><h2>${escape(column.title)}</h2>${(column.paragraphs || []).map(p => `<p>${lines(p)}</p>`).join('')}</article>`).join('')}</div>`;
+    case 'image': {
+      const source = String(slide.src || '');
+      const safeSource = /^(assets\/|https:\/\/)/.test(source) ? source : '';
+      return `<figure class="image-layout"><img src="${escape(safeSource)}" alt="${escape(slide.alt || slide.title)}"><figcaption>${escape(slide.caption || '')}</figcaption></figure>`;
+    }
+    default: return '<p class="notice">지원하지 않는 레이아웃입니다. content.js의 type을 확인하세요.</p>';
+  }
+}
+
+function renderDeck(round, trackKey, index) {
+  const deck = round.decks[trackKey];
+  const slide = deck.slides[index];
+  const track = tracks[trackKey];
+  current = { round, trackKey, index, slides: deck.slides };
+  document.title = `${round.title} · ${track.name} · ${index + 1} — GETDDO`;
+  document.body.classList.add('presenting');
+  app.innerHTML = `<div class="deck-shell">
+    <header class="deck-header"><a class="brand" href="#/" aria-label="GETDDO 홈">${logo}</a><div class="deck-breadcrumb"><a href="#/">멘토링</a><span>/</span><span>${escape(round.title)}</span><span>/</span><strong>${track.name}</strong></div><button class="icon-button fullscreen-button" data-action="fullscreen" aria-label="전체 화면">⛶ <span>전체 화면</span></button></header>
+    <div class="deck-workspace"><aside class="slide-outline ${overviewOpen ? 'is-open' : ''}" aria-label="슬라이드 목록"><div class="outline-heading"><span>SLIDE INDEX</span><span>${number(deck.slides.length)}</span></div>${deck.slides.map((item, i) => `<a class="outline-item ${index === i ? 'active' : ''}" href="${route(round.id, trackKey, i)}" ${index === i ? 'aria-current="step"' : ''}><span>${number(i + 1)}</span><div class="mini-preview mini-${escape(item.type)}"><span>${escape(item.label || item.type)}</span><b>${escape(item.title).replaceAll('\n', '<br>')}</b><i></i></div><span class="outline-title">${escape(({ cover: '표지', agenda: '목차', cards: '요구사항', architecture: '아키텍처', questions: '질문 & 논의' })[item.type] || item.title)}</span></a>`).join('')}<a class="back-home" href="#/">← 멘토링 홈</a></aside>
+    <main class="presentation-main" id="main" tabindex="-1"><div class="slide-fit"><article class="slide slide-${escape(slide.type)}" aria-label="${index + 1} / ${deck.slides.length}: ${escape(slide.title)}"><div class="slide-top"><span>${escape(slide.label || `${number(index + 1)} / ${slide.type.toUpperCase()}`)}</span><span>${track.english.toUpperCase()} <i>●</i> ${escape(round.title)}</span></div>
+    ${slide.type !== 'cover' ? `<div class="slide-heading"><h1>${lines(slide.title)}</h1>${slide.type !== 'questions' ? `<p>${escape(slide.description || '')}</p>` : ''}</div>` : ''}
+    <div class="slide-content">${renderBody(slide)}</div>
+    <div class="slide-footnote">${escape(slide.footnote || '')}</div><footer class="slide-footer">${logo}<span>GETDDO · ${track.english} · MENTORING ${number(round.id)}</span><b>${number(index + 1)} <span>/ ${number(deck.slides.length)}</span></b></footer></article></div></main></div>
+    <footer class="deck-toolbar"><button class="icon-button" data-action="outline" aria-expanded="${overviewOpen}" aria-label="슬라이드 목록 열기">☷ <span>슬라이드 목록</span></button><button class="icon-button fullscreen-button fullscreen-exit" data-action="fullscreen" aria-label="전체 화면 종료">⛶ <span>전체 화면 종료</span></button><span class="keyboard-hint"><kbd>←</kbd><kbd>→</kbd> 슬라이드 이동 <span>·</span> <kbd>F</kbd> 전체 화면</span><nav class="slide-controls" aria-label="슬라이드 이동"><button class="icon-button" data-action="prev" aria-label="이전 슬라이드" ${index === 0 ? 'disabled' : ''}>←</button><span><b>${number(index + 1)}</b> / ${number(deck.slides.length)}</span><button class="icon-button" data-action="next" aria-label="다음 슬라이드" ${index === deck.slides.length - 1 ? 'disabled' : ''}>→</button></nav></footer><div class="progress-track"><div style="width:${(index + 1) / deck.slides.length * 100}%"></div></div></div>`;
+  requestAnimationFrame(fitSlide);
+  updateFullscreen();
+  document.querySelector('#announcement').textContent = `${index + 1} / ${deck.slides.length}, ${slide.title.replaceAll('\n', ' ')}`;
+}
+
+function fitSlide() {
+  const fit = document.querySelector('.slide-fit');
+  if (!fit) return;
+  const area = fit.parentElement;
+  const css = getComputedStyle(area);
+  const width = area.clientWidth - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight);
+  const height = area.clientHeight - parseFloat(css.paddingTop) - parseFloat(css.paddingBottom);
+  const scale = Math.max(.05, Math.min(width / 1280, height / 720));
+  fit.style.width = `${1280 * scale}px`;
+  fit.style.height = `${720 * scale}px`;
+  fit.querySelector('.slide').style.transform = `scale(${scale})`;
+}
+
+function navigate(index) {
+  if (!current) return;
+  location.hash = route(current.round.id, current.trackKey, Math.max(0, Math.min(index, current.slides.length - 1)));
+}
+
+function renderRoute() {
+  if (!location.hash || location.hash === '#/' || location.hash === '#sessions' || location.hash === '#main') {
+    if (current || !app.children.length) home();
+    return;
+  }
+  const match = location.hash.match(/^#\/mentoring\/([1-3])\/(frontend|backend)\/(\d+)$/);
+  if (!match) return home('발표 주소를 찾을 수 없습니다. 아래에서 발표 자료를 선택해 주세요.');
+  const [, roundId, track, page] = match;
+  const round = rounds.find(r => r.id === roundId);
+  if (!available(round?.decks[track])) return home('아직 준비 중인 발표 자료입니다. 준비되면 이곳에서 열 수 있습니다.');
+  const index = Math.min(Math.max(Number(page) - 1, 0), round.decks[track].slides.length - 1);
+  const canonical = route(roundId, track, index);
+  if (location.hash !== canonical) history.replaceState(null, '', canonical);
+  renderDeck(round, track, index);
+}
+
+async function toggleFullscreen() {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+    else throw new Error('unsupported');
+  } catch {
+    document.querySelector('#announcement').textContent = '전체 화면을 사용할 수 없습니다. 브라우저의 전체 화면 메뉴를 이용해 주세요.';
+    const button = document.querySelector('.fullscreen-button');
+    if (button) { button.textContent = '전체 화면 미지원'; button.title = '브라우저의 전체 화면 메뉴를 이용해 주세요.'; }
+  }
+}
+
+function updateFullscreen() {
+  const enabled = Boolean(document.fullscreenElement);
+  document.body.classList.toggle('fullscreen', enabled);
+  document.querySelectorAll('.fullscreen-button').forEach(button => {
+    button.innerHTML = `⛶ <span>${enabled ? '전체 화면 종료' : '전체 화면'}</span>`;
+    button.setAttribute('aria-label', enabled ? '전체 화면 종료' : '전체 화면');
+  });
+  requestAnimationFrame(fitSlide);
+}
+
+document.addEventListener('click', event => {
+  if (event.target.closest('.skip-link')) {
+    event.preventDefault();
+    document.querySelector('#main').focus();
+    return;
+  }
+  if (event.target.closest('.outline-item')) {
+    overviewOpen = false;
+    document.querySelector('.slide-outline').classList.remove('is-open');
+    document.querySelector('[data-action="outline"]').setAttribute('aria-expanded', 'false');
+  }
+  const target = event.target.closest('button');
+  if (!target || target.disabled) return;
+  if (target.dataset.goto !== undefined) navigate(Number(target.dataset.goto));
+  switch (target.dataset.action) {
+    case 'prev': navigate(current.index - 1); break;
+    case 'next': navigate(current.index + 1); break;
+    case 'fullscreen': toggleFullscreen(); break;
+    case 'outline':
+      overviewOpen = !overviewOpen;
+      document.querySelector('.slide-outline').classList.toggle('is-open', overviewOpen);
+      target.setAttribute('aria-expanded', String(overviewOpen));
+      break;
+  }
+});
+
+document.addEventListener('keydown', event => {
+  if (!current || event.altKey || event.ctrlKey || event.metaKey || event.target.closest('input,textarea,select,[contenteditable="true"]')) return;
+  if (event.key === ' ' && event.target.closest('button,a')) return;
+  if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); navigate(current.index + 1); }
+  else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); navigate(current.index - 1); }
+  else if (event.key === 'Home') { event.preventDefault(); navigate(0); }
+  else if (event.key === 'End') { event.preventDefault(); navigate(current.slides.length - 1); }
+  else if (event.key.toLowerCase() === 'f') { event.preventDefault(); toggleFullscreen(); }
+  else if (event.key === 'Escape' && overviewOpen) {
+    overviewOpen = false;
+    document.querySelector('.slide-outline').classList.remove('is-open');
+    document.querySelector('[data-action="outline"]').setAttribute('aria-expanded', 'false');
+  }
+});
+window.addEventListener('hashchange', renderRoute);
+window.addEventListener('resize', fitSlide);
+document.addEventListener('fullscreenchange', updateFullscreen);
+renderRoute();
