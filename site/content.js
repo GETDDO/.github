@@ -89,15 +89,23 @@ const makeBackendSlides = () => [
   },
   ...commonSlides.slice(2, 5),
   {
-    type: 'cards', title: '기술 스택', label: '02 / TECH STACK',
-    description: '백엔드 설정 파일 기준 · 기술별 선택 이유 추가 예정',
-    cards: [
-      { label: 'SERVER', title: '언어·서버', text: 'Java 21 · Spring Boot 4.1.1. Spring MVC 기반 API, Validation 의존성 설정.', tag: 'build.gradle · api/build.gradle', tone: 'mint' },
-      { label: 'DATA', title: '데이터 접근', text: 'Spring Data JPA · Flyway 의존성 설정. DB 제품·버전과 연결 구성은 추가 예정.', tag: 'storage/db/build.gradle 기준', tone: 'yellow' },
-      { label: 'BUILD & TEST', title: '빌드·테스트', text: 'Gradle 9.7.1 · api/core/storage:db 멀티모듈. Spring Boot Test · JUnit Platform 설정.', tag: '빌드·테스트 실행 결과 추가 예정', tone: 'pink' },
-      { label: 'DEPLOYMENT', title: '배포·외부 연동', text: '요구사항: Docker · HTTPS · 객체 저장소. 실제 배포 환경과 제품 선택, 연동 구성 추가 예정.', tag: '실제 도입 완료 여부 미확인', tone: 'mint' },
+    type: 'tech', title: '기술 스택', label: '02 / TECH STACK',
+    description: '언어 · 서버 · 데이터 접근 · 빌드 및 테스트',
+    items: [
+      { icon: 'java', name: 'Java', version: '21', role: '서버 개발 언어' },
+      { icon: 'spring', name: 'Spring Boot', version: '4.1.1', role: 'Spring MVC · Validation' },
+      { icon: 'spring', name: 'Spring Data JPA', role: '데이터 접근' },
+      { icon: 'flyway', name: 'Flyway', role: 'DB 스키마 변경 관리' },
+      { icon: 'gradle', name: 'Gradle', version: '9.7.1', role: '멀티모듈 빌드' },
+      { icon: 'junit', name: 'JUnit Platform', role: 'Spring Boot Test 연동' },
     ],
-    footnote: '버전은 로컬 저장소 설정값 · 실행 환경 검증이나 구현 완료를 의미하지 않음',
+    notesTitle: '확인할 항목',
+    notes: [
+      { title: '데이터베이스', text: '제품 · 버전 추가 예정' },
+      { title: '배포·외부 연동', text: 'Docker · HTTPS · 객체 저장소는 요구사항. 실제 구성 추가 예정.' },
+      { title: '선택 근거', text: '기술 선택 이유 · 대안 비교 추가 예정' },
+    ],
+    footnote: '백엔드 저장소 설정 기준 · Spring 계열은 공통 로고 사용 · 도입·실행 검증 결과 아님',
   },
   {
     type: 'image', title: '시스템 아키텍처', label: '03 / ARCHITECTURE',
@@ -189,15 +197,21 @@ const makeSlides = (track) => {
       footnote: '멘토링 확인: 조작·난이도 범위, 점수 검증 및 클라이언트·서버 역할, 플레이 중 이탈·재시도 처리',
     },
     {
-      type: 'cards', title: '기술 스택', label: '03 / TECH STACK',
-      description: '프론트 저장소에 기술 설정 미등록 · 팀 선택 확인 후 추가 예정',
-      cards: [
-        { label: 'FOUNDATION', title: '언어·프레임워크', text: '개발 언어, UI 프레임워크, 라우팅 방식과 버전.', tag: '추가 예정', tone: 'mint' },
-        { label: 'STATE & API', title: '상태·API 연동', text: '화면 상태, 서버 데이터 관리, HTTP 요청과 실시간 현황 갱신 방식.', tag: '추가 예정', tone: 'yellow' },
-        { label: 'UI & GAME', title: '스타일·게임', text: '스타일링 방식, 공통 UI, 게임 화면 렌더링과 입력 처리 기술.', tag: '추가 예정', tone: 'pink' },
-        { label: 'TOOLING', title: '빌드·테스트·배포', text: '패키지 관리, 빌드 도구, 테스트 도구, 정적 검사 및 배포 환경.', tag: '추가 예정', tone: 'mint' },
+      type: 'tech', title: '기술 스택', label: '03 / TECH STACK', pending: true,
+      description: '팀 선택 확인 후 기술 아이콘과 버전 추가 예정',
+      items: [
+        { icon: 'code', name: '언어·프레임워크', role: '개발 언어 · UI 프레임워크 · 라우팅', status: '추가 예정' },
+        { icon: 'layers', name: '상태·API 연동', role: '상태 관리 · HTTP 요청 · 실시간 갱신', status: '추가 예정' },
+        { icon: 'game', name: '스타일·게임', role: '스타일링 · UI · 게임 렌더링 및 입력', status: '추가 예정' },
+        { icon: 'tools', name: '빌드·테스트·배포', role: '패키지 · 빌드 · 테스트 · 배포 환경', status: '추가 예정' },
       ],
-      footnote: 'GETDDO/getddo-fe main에는 README만 존재 · 멘토링 확인: 선택 이유, 대안, 게임 구현과의 적합성',
+      notesTitle: '선택 후 채울 내용',
+      notes: [
+        { title: '기술 · 버전', text: '확정 기술의 로고와 버전' },
+        { title: '선택 이유', text: '역할 · 대안 · 선택 기준' },
+        { title: '게임 구현', text: '렌더링 · 입력 처리 · 서버 연동' },
+      ],
+      footnote: '프론트 저장소에 기술 설정 미등록 · 현재 아이콘은 기술 로고가 아닌 분류 표시',
     },
     {
       type: 'architecture', title: '아키텍처',

@@ -116,7 +116,7 @@ try {
         const footer = slide.querySelector('.slide-footnote').getBoundingClientRect();
         const content = slide.querySelector('.slide-content');
         const bounds = slide.getBoundingClientRect();
-        return [...content.querySelectorAll('h1,h2,p,li,.content-card,.arch-node,.agenda-item')].filter(el => {
+        return [...content.querySelectorAll('h1,h2,h3,p,li,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
           const r = el.getBoundingClientRect();
           return r.bottom > footer.top + 2 || r.right > bounds.right + 2 || r.left < bounds.left - 2;
         }).map(el => el.textContent);
@@ -130,9 +130,12 @@ try {
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
-    await page.waitForSelector('.slide-cards');
+    await page.waitForSelector('.slide-tech');
     const text = await page.locator('.slide').innerText();
-    assert.match(text, track === 'backend' ? /Java 21/ : /팀 선택 확인 후 추가 예정/);
+    assert.match(text, track === 'backend' ? /Java/ : /팀 선택 확인 후/);
+    assert.equal(await page.locator('.content-card').count(), 0);
+    assert.equal(await page.locator('.tech-entry img').count(), track === 'backend' ? 6 : 4);
+    await page.waitForFunction(() => [...document.querySelectorAll('.tech-entry img')].every(img => img.complete && img.naturalWidth > 0));
   }
   pass('both tech-stack agenda links, verified backend and pending frontend');
   await page.goto(`${base}#/mentoring/1/backend/2`);

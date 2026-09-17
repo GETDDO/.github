@@ -32,6 +32,7 @@ python3 -m http.server 4173 --directory site
 
 | type | 필수 내용 |
 | --- | --- |
+| `tech` | `title`, `items: [{icon, name, version, role}]`, `notesTitle`, `notes: [{title, text}]` |
 | `ending` | `title`, `description` (감사합니다 등 마무리) |
 | `cover` | `title`, `description`, `tags: ['키워드']` |
 | `agenda` | `title`, `items: [{title, description, target: 2}]` |
@@ -146,3 +147,9 @@ npm test
 ## 기술 스택
 
 두 트랙 모두 기술 스택 페이지가 있으며 각 목차에서 이동 가능합니다. 백엔드는 로컬 Gradle 설정에 있는 언어·서버·데이터 접근·빌드·테스트 항목을 기록했습니다. DB 종류와 배포 상세는 추가 예정입니다. 프론트는 GETDDO/getddo-fe main의 README 외 설정 파일이 없어 기술을 추정하지 않고 항목별 추가 예정으로 표시했습니다. 저장소 설정과 팀 선택이 바뀌면 해당 `title: '기술 스택'` 객체도 갱신하세요.
+
+## 기술 스택 아이콘 레이아웃
+
+기술 스택은 흰 배경의 아이콘·이름·버전·역할 목록과 별도 확인 항목으로 구성합니다. `type: 'tech'`와 `items`를 사용하며, `icon`은 `site/assets/tech/` 안의 SVG 파일명(확장자 제외)입니다. 프론트의 미정 항목은 일반 분류 아이콘을 사용하고 확정 후 기술 로고로 교체합니다.
+
+아이콘은 런타임 CDN 요청 없이 사이트에 포함합니다. 출처·라이선스는 `site/assets/tech/SOURCES.md` 참고.

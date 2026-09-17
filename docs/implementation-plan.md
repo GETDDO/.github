@@ -36,3 +36,6 @@ Backend expanded to 14 slides with overview, requirement-based scope/scale, stat
 
 ## Game concept and technology stacks
 Frontend game concept added with takoyaki as an unconfirmed candidate, proposed play flow and pending rules/screens. Both tracks now include technology stacks. Backend values read from local Gradle configuration; frontend main contains only README, so choices are pending. Frontend 10 slides, backend 15; all 25 slides and 13 browser checks passed.
+
+## Icon-based technology layout
+Replaced technology cards with a dedicated white-background logo/name/version/role list and a separate notes column. Backend uses bundled Devicon/Simple Icons with licenses; pending frontend technologies use project-authored category icons. Verified icon loads, no colored cards, no content/footer overlaps and all 13 browser checks.
