@@ -51,6 +51,60 @@ const commonSlides = [
   },
 ];
 
+// 사용자 제공 기획 내용을 두 트랙에서 공유.
+const overviewSlides = [
+  {
+    type: 'cards', shared: true, title: '프로젝트 개요', label: 'OVERVIEW / GOAL',
+    description: 'LG유플러스 사이트와 결합하는 멤버십 응모 이벤트 플랫폼',
+    cards: [
+      { label: 'GOAL', title: '참여와 응모', text: '출석·미션·게임으로 응모권 획득. 응모권 사용 이벤트에 차감해 응모하거나, 미사용 이벤트에 무료 참여.', tag: '구매·결제 연계 없는 참여', tone: 'mint' },
+      { label: 'TARGET', title: '기존 가입자 전체', text: '모든 멤버십 등급을 잠재 사용자로 설정. 신규 회원 모집이나 특정 등급에 한정하지 않고, 이벤트별 자격은 개별 설정.', tag: 'LG유플러스 멤버십 가입자', tone: 'yellow' },
+      { label: 'USER', title: '일상·한정 시간 참여', text: '꾸준히 응모권을 모으는 사용자, 지정 시각 이벤트에 응모하는 사용자, 추첨 결과와 선정 과정을 확인하고 싶은 사용자.', tag: '앱·웹을 통한 반복 참여', tone: 'pink' },
+    ],
+    footnote: '서비스 기획 목표 · 실제 사이트·멤버십 연동 범위는 추가 예정',
+  },
+  {
+    type: 'split', shared: true, title: '문제 정의', label: 'OVERVIEW / PROBLEM',
+    description: '추첨 근거와 응모권 변동을 확인할 수 있는 기록',
+    columns: [
+      { label: 'DRAW', title: '선정 근거 확인', paragraphs: ['어떤 대상·조건으로 당첨자가 정해졌는지 확인하기 어려움.', '같은 입력으로 결과를 다시 확인할 자료가 없으면, 이의 제기 시 근거를 제시하기 어려움.'] },
+      { label: 'TICKET', title: '보유량과 이력 일치', paragraphs: ['응모권 지급·차감 기록과 보유량이 어긋나면 사용 가능 수량을 설명하기 어려움.', '운영자도 문의·취소·반환 처리의 근거가 필요.'] },
+    ],
+    footnote: '프로젝트가 해결하려는 문제 가설 · 특정 서비스에서 확인된 결함을 뜻하지 않음',
+  },
+  {
+    type: 'cards', shared: true, title: '해결 방향', label: 'OVERVIEW / APPROACH',
+    description: '추첨 재현 자료 · 누적 이력 · 공개 시점 · 운영 판단 기록',
+    cards: [
+      { label: '01', title: '추첨 재현', text: '응모자·응모권 수·가중치·조건 스냅샷 보관. 시드 또는 추첨 키, 입력 순서·버전을 기록해 결과와 당첨 순서 대조.', tag: '관리자 사후 재현·검증', tone: 'mint' },
+      { label: '02', title: '응모권 이력', text: '지급·차감 이력은 수정·삭제 없이 누적. 이력 합계와 보유량 일치. 취소 반환도 별도 이력으로 반영.', tag: '잔액과 변동 근거 함께 보관', tone: 'yellow' },
+      { label: '03', title: '결과 공개', text: '발표 전 결과 비공개. 관리자 발표 승인 후 마스킹한 당첨자 명단과 경품 공개.', tag: '추첨 확정과 공개 시점 구분', tone: 'pink' },
+      { label: '04', title: '검토·재추첨', text: '어뷰징은 자동 제외 없이 관리자 판단·사유 기록. 발표 후 문제 당첨만 취소하고 재추첨 이력을 최초 추첨과 연결.', tag: '처리 사유와 변경 이력 보존', tone: 'mint' },
+    ],
+  },
+  {
+    type: 'comparison', shared: true, title: '유사 서비스 분석', label: 'OVERVIEW / COMPARISON',
+    description: '팀 제공 분석 요약 · 참여 구조와 비교할 지점',
+    rows: [
+      ['SKT T멤버십', '멤버십 등급별 혜택 · 이벤트', '전 등급 대상의 응모 중심 동선'],
+      ['캐시워크', '일상 활동 리워드 · 반복 참여', '응모권 획득부터 이벤트 응모까지 연결'],
+      ['이벤터스', '행사 등록 · 범용 이벤트 운영', '브랜드 멤버십 · 출석·미션·게임 결합'],
+      ['커머스 경품 이벤트', '구매·리뷰 등 행동 연계 응모', '구매·결제 없는 무료 참여 구조'],
+    ],
+    footnote: '각 서비스의 현행 혜택·추첨 공개 범위는 출처 확인 필요 · 내부 재현·검증 기능 부재를 단정하지 않음',
+  },
+  {
+    type: 'cards', shared: true, title: '차별점', label: 'OVERVIEW / DIFFERENCE',
+    description: '응모권 데이터 정합성과 운영자까지 이어지는 서비스 화면',
+    cards: [
+      { label: 'DRAW', title: '재현 가능한 추첨', text: '동일 입력·조건으로 결과를 재현하고 원본과 대조. 당첨 취소·재추첨도 최초 실행과 연결.', tag: '운영자가 확인할 근거 보존', tone: 'mint' },
+      { label: 'LEDGER', title: '응모권 이력 관리', text: '수정·삭제 없는 누적 이력과 잔액 일치. 문의·분쟁·반환 처리에 사용할 변동 근거 확보.', tag: '백엔드 · 정합성과 처리 기록', tone: 'yellow' },
+      { label: 'EVENT', title: '두 가지 응모 방식', text: '응모권 미사용형과 지정 시간 차감형 구분. 가중치 적용 여부를 이벤트별 설정. 참여 화면부터 백오피스까지 구성.', tag: '프론트 · 사용자·운영자 UI', tone: 'pink' },
+    ],
+    footnote: '프로젝트 설계 목표 · 추첨 재현 가능성과 알고리즘의 공정성 검증은 별도',
+  },
+];
+
 // 백엔드 발표: 구현 확인이 필요한 항목은 추가 예정으로 유지.
 const makeBackendSlides = () => [
   commonSlides[0],
@@ -58,16 +112,17 @@ const makeBackendSlides = () => [
     type: 'agenda', title: '목차', label: 'CONTENTS', description: '',
     items: [
       { title: '프로젝트 개요', description: '범위 · 목표 규모 · 진행 상태', target: 2 },
-      { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 4 },
-      { title: '기술 스택', description: '설정 파일 기준 · 미정 항목', target: 7 },
-      { title: '시스템 아키텍처', description: '구성도 추가 예정', target: 8 },
-      { title: 'ERD', description: '테이블 및 관계 추가 예정', target: 9 },
-      { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 10 },
-      { title: '질문', description: '설계 검토 및 정책 확인', target: 12 },
+      { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 9 },
+      { title: '기술 스택', description: '설정 파일 기준 · 미정 항목', target: 12 },
+      { title: '시스템 아키텍처', description: '구성도 추가 예정', target: 13 },
+      { title: 'ERD', description: '테이블 및 관계 추가 예정', target: 14 },
+      { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 15 },
+      { title: '질문', description: '설계 검토 및 정책 확인', target: 17 },
     ],
   },
+  ...overviewSlides,
   {
-    type: 'cards', title: '프로젝트 개요', label: 'OVERVIEW',
+    type: 'cards', title: '시연 범위', label: 'DEMO SCOPE',
     description: '출석·미션·게임으로 받은 응모권을 사용하는 이벤트 응모 서비스',
     cards: [
       { label: 'SERVICE', title: '사용자·관리자', text: '사용자: 응모권 획득, 이벤트 응모, 결과 확인. 관리자: 이벤트·경품 운영, 어뷰징 검토, 추첨 결과 발표.', tag: '응모권 미사용·사용 이벤트', tone: 'mint' },
@@ -169,15 +224,31 @@ const makeSlides = (track) => {
     ...commonSlides.map(slide => slide.type === 'agenda' ? {
       ...slide, shared: false,
       items: [
-        slide.items[0],
-        { title: '게임 컨셉', description: '게임 후보 · 플레이 흐름 · 보상', target: 5 },
-        { title: '기술 스택', description: '언어 · 화면 · 상태 · 도구', target: 6 },
-        { ...slide.items[1], target: 7 },
-        { ...slide.items[2], target: 8 },
+        { title: '프로젝트 개요', description: '목표 · 문제 · 유사 서비스 · 차별점', target: 2 },
+        { ...slide.items[0], target: 7 },
+        { title: '디자인 시스템', description: '브랜드 컬러 · 응모권 · 놀이', target: 10 },
+        { title: '마스코트', description: '타코야끼 · 채택 이유', target: 11 },
+        { title: '게임 컨셉', description: '게임 후보 · 플레이 흐름 · 보상', target: 12 },
+        { title: '기술 스택', description: '언어 · 화면 · 상태 · 도구', target: 13 },
+        { ...slide.items[1], target: 14 },
+        { ...slide.items[2], target: 15 },
       ],
-    } : slide),
+    } : slide).flatMap((slide, index) => index === 2 ? [...overviewSlides, slide] : [slide]),
     {
-      type: 'cards', title: '게임 컨셉', label: '02 / GAME CONCEPT',
+      type: 'palette', title: '디자인 시스템', label: '02 / DESIGN SYSTEM',
+      description: '브랜드는 마젠타 · 응모권은 옐로 · 놀이는 파스텔',
+      footnote: '마젠타 #E6007E · 보조 색상은 사용 방향을 보여주는 예시',
+    },
+    {
+      type: 'mascot', title: '마스코트 — 타코야끼', label: '03 / MASCOT',
+      description: '응모·추첨과 놀이를 연결하는 서비스 캐릭터',
+      reasons: [
+        { title: '추첨공을 닮은 모양', text: '동그란 형태로 응모·추첨 서비스의 컨셉 표현' },
+        { title: '무너의 친구', text: '유플러스 캐릭터 ‘무너’의 친구라는 설정으로 브랜드와 연결' },
+      ],
+    },
+    {
+      type: 'cards', title: '게임 컨셉', label: '04 / GAME CONCEPT',
       description: '게임 종류는 미확정 · 후보와 화면 흐름 검토',
       cards: [
         { label: 'CONCEPT', title: '타코야끼 만들기', text: '요구사항에 나온 게임 후보. 조작 방식, 성공·실패 조건, 제한 시간과 난이도는 추가 예정.', tag: '후보 · 확정 게임 아님', tone: 'mint' },
@@ -188,7 +259,7 @@ const makeSlides = (track) => {
       footnote: '멘토링 확인: 조작·난이도 범위, 점수 검증 및 클라이언트·서버 역할, 플레이 중 이탈·재시도 처리',
     },
     {
-      type: 'tech', title: '기술 스택', label: '03 / TECH STACK', pending: true,
+      type: 'tech', title: '기술 스택', label: '05 / TECH STACK', pending: true,
       description: '팀 선택 확인 후 기술 아이콘과 버전 추가 예정',
       items: [
         { icon: 'code', name: '언어·프레임워크', role: '개발 언어 · UI 프레임워크 · 라우팅', status: '추가 예정' },
@@ -206,7 +277,7 @@ const makeSlides = (track) => {
     },
     {
       type: 'architecture', title: '아키텍처',
-      label: '04 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
+      label: '06 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
       nodes: [
         { title: '사용자 화면', subtitle: '이벤트 · 출석 · 게임', detail: '화면 / 컴포넌트' },
         { title: '상태 & 요청', subtitle: '로딩 · 성공 · 오류', detail: '상태 관리 / API 연동' },
@@ -219,14 +290,11 @@ const makeSlides = (track) => {
       ],
     },
     {
-      type: 'questions', title: '질문', label: '05 / QUESTIONS',
-      description: '정책 및 구현 관련 확인 사항',
+      type: 'questions', title: '질문', label: '07 / QUESTIONS',
+      description: '웹에서 앱으로 확장',
       questions: [
-        '응모·결과 확인 화면의 필수 상태와 안내 범위?',
-        '실시간 현황 갱신 방식과 주기?',
-        '멱등 키·에러 코드·페이지네이션 연동 계약?',
+        '현재 웹사이트로 제작 후 앱 등으로도 변환하려고 하는데, 어떤 방법으로 마이그레이션을 진행하는지?',
       ],
-      footnote: '논의 항목 초안',
     },
     {
       type: 'ending', shared: true, title: '감사합니다', label: 'GETDDO',

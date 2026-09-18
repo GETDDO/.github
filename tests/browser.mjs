@@ -8,7 +8,7 @@ import { rounds } from '../site/content.js';
 
 const { frontend, backend } = rounds[0].decks;
 assert.deepEqual(frontend.slides[0], backend.slides[0]);
-assert.deepEqual(frontend.slides.slice(2, 5), backend.slides.slice(4, 7));
+assert.deepEqual(frontend.slides.slice(7, 10), backend.slides.slice(9, 12));
 assert.equal(frontend.slides.some(slide => slide.title === 'ERD'), false);
 for (const title of ['시스템 아키텍처', 'ERD']) {
   const slide = backend.slides.find(slide => slide.title === title);
@@ -16,9 +16,9 @@ for (const title of ['시스템 아키텍처', 'ERD']) {
   assert.match(slide.placeholder, /추가 예정/);
 }
 assert.equal(backend.slides.some(slide => slide.title === '검증 계획'), false);
-assert.deepEqual(frontend.slides.slice(2, 5).map(slide => slide.title), ['이벤트', '응모권', '관리자']);
+assert.deepEqual(frontend.slides.slice(7, 10).map(slide => slide.title), ['이벤트', '응모권', '관리자']);
 for (const deck of [frontend, backend]) {
-  assert.deepEqual(deck.slides[1].items.map(item => item.title), deck === frontend ? ['요구사항', '게임 컨셉', '기술 스택', '아키텍처', '질문'] : ['프로젝트 개요', '요구사항', '기술 스택', '시스템 아키텍처', 'ERD', '핵심 처리 흐름', '질문']);
+  assert.deepEqual(deck.slides[1].items.map(item => item.title), deck === frontend ? ['프로젝트 개요', '요구사항', '디자인 시스템', '마스코트', '게임 컨셉', '기술 스택', '아키텍처', '질문'] : ['프로젝트 개요', '요구사항', '기술 스택', '시스템 아키텍처', 'ERD', '핵심 처리 흐름', '질문']);
   assert.equal(deck.slides.at(-1).title, '감사합니다');
   assert.equal(deck.slides.at(-1).type, 'ending');
   for (const item of deck.slides[1].items) {
@@ -75,14 +75,14 @@ try {
   assert.equal(await page.locator('[data-action=prev]').isDisabled(), true);
   await page.keyboard.press('ArrowRight');
   await page.waitForSelector('.slide-agenda');
-  await page.locator('.agenda-item').first().click();
+  await page.locator('.agenda-item').filter({ hasText: '요구사항' }).click();
   await page.waitForSelector('.slide-cards');
   assert.match(await page.locator('.slide').innerText(), /지정 시각에 모집/);
   await page.keyboard.press('End');
   await page.waitForSelector('.slide-ending');
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.keyboard.press('ArrowRight');
-  assert.match(page.url(), /frontend\/10$/);
+  assert.match(page.url(), /frontend\/17$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   await page.locator('[data-action=next]').click();
@@ -116,7 +116,7 @@ try {
         const footer = slide.querySelector('.slide-footnote').getBoundingClientRect();
         const content = slide.querySelector('.slide-content');
         const bounds = slide.getBoundingClientRect();
-        return [...content.querySelectorAll('h1,h2,h3,p,li,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
+        return [...content.querySelectorAll('h1,h2,h3,p,li,td,.cover-mascot,.ending-mascot,.mascot-layout>img,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
           const r = el.getBoundingClientRect();
           return r.bottom > footer.top + 2 || r.right > bounds.right + 2 || r.left < bounds.left - 2;
         }).map(el => el.textContent);
@@ -126,7 +126,7 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /백엔드/);
-  pass('all 24 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all 36 slides fit canvas without footer overlap; deep links survive reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
@@ -159,7 +159,7 @@ try {
   }
   await page.goto(`${base}#/mentoring/1/backend/999`);
   await page.waitForSelector('.slide-ending');
-  assert.match(page.url(), /backend\/14$/);
+  assert.match(page.url(), /backend\/19$/);
   pass('locked/invalid links handled, out-of-range page canonicalized');
   for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
     await page.setViewportSize(viewport);

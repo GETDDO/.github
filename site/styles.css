@@ -1627,3 +1627,36 @@ kbd {
 .tech-layout.is-dense .tech-entry { min-height:88px; padding:12px 0; }
 .tech-layout.is-dense .tech-entry img { width:48px; height:48px; }
 .tech-layout.is-dense .tech-name h2 { font-size:21px; }
+
+/* Service identity and mascot */
+.slide-cover, .slide-ending { background:#fafafa; }
+.cover-mascot { position:absolute; width:450px; height:450px; object-fit:contain; right:65px; top:110px; }
+.slide-ending .slide-content { gap:55px; }
+.ending-mascot { width:300px; height:340px; object-fit:contain; }
+.palette-layout { display:grid; grid-template-columns:330px 1fr; gap:48px; margin-top:30px; }
+.palette-brand { background:#E6007E; color:white; border-radius:20px; padding:36px; display:flex; flex-direction:column; min-height:320px; }
+.palette-brand .eyebrow { color:white; }
+.palette-brand h2 { margin-top:65px; font-size:36px; }
+.palette-brand p { margin-top:8px; font-size:23px; }
+.palette-brand>span:last-child { margin-top:22px; font-size:16px; }
+.palette-roles article { display:flex; align-items:center; gap:25px; min-height:106px; border-bottom:1px solid var(--line); }
+.palette-roles h2 { font-size:23px; }
+.palette-roles p { margin-top:10px; font-size:17px; color:var(--muted); }
+.palette-samples { display:flex; width:128px; flex-shrink:0; }
+.palette-samples i { display:block; width:48px; height:48px; border-radius:50%; border:3px solid white; margin-right:-9px; }
+.sample-ticket { background:#FFD45C; }
+.sample-yellow { background:#FFF0B5; }
+.sample-pink { background:#FADCE9; }
+.sample-lavender { background:#E6DDF7; }
+.sample-white { background:#fff; box-shadow:inset 0 0 0 1px #ddd; }
+.sample-gray { background:#E9EBEE; }
+.mascot-layout { display:grid; grid-template-columns:390px 1fr; align-items:center; gap:65px; }
+.mascot-layout>img { width:370px; height:365px; object-fit:contain; }
+.mascot-layout article+article { margin-top:42px; }
+.mascot-layout h2 { font-size:28px; }
+.mascot-layout p { font-size:21px; line-height:1.7; color:var(--muted); margin-top:14px; }
+
+.comparison-table { width:100%; border-collapse:collapse; margin-top:30px; font-size:19px; text-align:left; }
+.comparison-table th { padding:18px; background:#f3f4f6; font-size:16px; color:var(--muted); }
+.comparison-table td { padding:24px 18px; border-bottom:1px solid var(--line); line-height:1.5; }
+.comparison-table td:first-child { font-weight:700; width:24%; }
