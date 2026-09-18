@@ -111,7 +111,7 @@ const makeBackendSlides = () => [
   {
     type: 'agenda', title: '목차', label: 'CONTENTS', description: '',
     items: [
-      { title: '프로젝트 개요', description: '범위 · 목표 규모 · 진행 상태', target: 2 },
+      { title: '프로젝트 개요', description: '범위 · 진행 상태', target: 2 },
       { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 9 },
       { title: '기술 스택', description: '설정 파일 기준 · 미정 항목', target: 12 },
       { title: '시스템 아키텍처', description: '구성도 추가 예정', target: 13 },
@@ -127,15 +127,13 @@ const makeBackendSlides = () => [
     cards: [
       { label: 'SERVICE', title: '사용자·관리자', text: '사용자: 응모권 획득, 이벤트 응모, 결과 확인. 관리자: 이벤트·경품 운영, 어뷰징 검토, 추첨 결과 발표.', tag: '응모권 미사용·사용 이벤트', tone: 'mint' },
       { label: 'SCOPE', title: '시연 범위', text: '고정 ID의 가상 사용자와 더미 데이터로 시연. 관리자 기능은 별도 인증. 실제 결제·배송·외부 알림 발송 제외.', tag: '주간 미션 보류 · 알림 모의 발송', tone: 'yellow' },
-      { label: 'TARGET', title: '목표 규모', text: '이벤트당 응모자 1,000명. 동시 접속 100명. 평시 20 RPS, 마감 직전 100 RPS를 1분간 유지.', tag: '요구사항 목표 · 측정 결과 아님', tone: 'pink' },
     ],
-    footnote: '2026.09.17 요구사항 기준 · 동시 접속자 수와 초당 요청 수는 별도 지표',
   },
   {
     type: 'cards', title: '진행 상태', label: 'STATUS',
     description: '현재 자료에 반영된 내용과 추가할 자료',
     cards: [
-      { label: 'REQUIREMENTS', title: '요구사항 정리', text: '이벤트·응모권·관리자 기능과 목표 규모 정리. 자동 추첨 시 미검토 건, 중단·재개 조건, 월 경계 반환 정책은 확인 필요.', tag: '정리된 범위와 미정 정책 구분', tone: 'mint' },
+      { label: 'REQUIREMENTS', title: '요구사항 정리', text: '이벤트·응모권·관리자 기능 정리. 자동 추첨 시 미검토 건, 중단·재개 조건, 월 경계 반환 정책은 확인 필요.', tag: '정리된 범위와 미정 정책 구분', tone: 'mint' },
       { label: 'DESIGN', title: '설계 자료', text: '시스템 아키텍처, ERD, 기술 선택 근거, 상세 트랜잭션 경계와 연동 방식.', tag: '추가 예정', tone: 'yellow' },
       { label: 'IMPLEMENTATION', title: '구현·검증 현황', text: '완료·진행 중 기능, 담당 범위, 개발 일정, 시연 화면 및 테스트 결과.', tag: '팀 진행 현황 확인 후 추가 예정', tone: 'pink' },
     ],
@@ -200,7 +198,7 @@ const makeBackendSlides = () => [
     notes: [
       ['발표 전 비공개', '관리자 승인 후 결과 공개. 전체 알림 생성 완료를 기다리지 않음.'],
       ['요구사항의 처리 기준', '발표 상태 변경과 알림 작업 등록을 같은 트랜잭션으로 처리.'],
-      ['실시간 결과', '발표 승인 후 화면 반영 p95 2초 이내 목표. 재접속 시 결과 조회 API로 확인.'],
+      ['실시간 결과', '발표 승인 후 접속 사용자 화면에 결과 반영. 재접속 시 결과 조회 API로 확인.'],
     ],
     footnote: '결과 전달 방식·재연결 처리·추첨 상세 구조 추가 예정 · 알림은 비동기 생성 및 실패 시 재시도',
   },

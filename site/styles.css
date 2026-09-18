@@ -1629,10 +1629,9 @@ kbd {
 .tech-layout.is-dense .tech-name h2 { font-size:21px; }
 
 /* Service identity and mascot */
-.slide-cover, .slide-ending { background:#fafafa; }
-.cover-mascot { position:absolute; width:450px; height:450px; object-fit:contain; right:65px; top:110px; }
-.slide-ending .slide-content { gap:55px; }
-.ending-mascot { width:300px; height:340px; object-fit:contain; }
+.ticket-mascot { position:absolute; width:145px; height:145px; object-fit:contain; right:30px; bottom:8px; transform:rotate(12deg); z-index:2; }
+.ending-mascot { position:absolute; width:145px; height:145px; object-fit:contain; right:115px; bottom:145px; transform:rotate(-12deg); }
+.content-card-grid.two-cards { grid-template-columns:repeat(2,1fr); }
 .palette-layout { display:grid; grid-template-columns:330px 1fr; gap:48px; margin-top:30px; }
 .palette-brand { background:#E6007E; color:white; border-radius:20px; padding:36px; display:flex; flex-direction:column; min-height:320px; }
 .palette-brand .eyebrow { color:white; }

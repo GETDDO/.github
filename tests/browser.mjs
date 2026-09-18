@@ -116,7 +116,7 @@ try {
         const footer = slide.querySelector('.slide-footnote').getBoundingClientRect();
         const content = slide.querySelector('.slide-content');
         const bounds = slide.getBoundingClientRect();
-        return [...content.querySelectorAll('h1,h2,h3,p,li,td,.cover-mascot,.ending-mascot,.mascot-layout>img,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
+        return [...content.querySelectorAll('h1,h2,h3,p,li,td,.ticket-mascot,.ending-mascot,.mascot-layout>img,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
           const r = el.getBoundingClientRect();
           return r.bottom > footer.top + 2 || r.right > bounds.right + 2 || r.left < bounds.left - 2;
         }).map(el => el.textContent);
