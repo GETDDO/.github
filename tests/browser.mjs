@@ -17,7 +17,7 @@ assert.equal(backend.slides.find(slide => slide.type === 'tech').items.find(item
 assert.equal(backend.slides.some(slide => slide.title === '검증 계획'), false);
 assert.deepEqual(frontend.slides.slice(7, 10).map(slide => slide.title), ['이벤트', '응모권', '관리자']);
 for (const deck of [frontend, backend]) {
-  assert.deepEqual(deck.slides[1].items.map(item => item.title), deck === frontend ? ['프로젝트 개요', '요구사항', '디자인 시스템', '마스코트', '게임 컨셉', '기술 스택', '질문'] : ['프로젝트 개요', '요구사항', '기술 스택', '핵심 처리 흐름', 'Q&A']);
+  assert.deepEqual(deck.slides[1].items.map(item => item.title), deck === frontend ? ['프로젝트 개요', '요구사항', '디자인 시스템', '마스코트', '게임 컨셉', '기술 스택', '질문'] : ['프로젝트 개요', '요구사항', '기술 스택', '핵심 처리 흐름', '질문']);
   assert.equal(deck.slides.at(-1).title, '감사합니다');
   assert.equal(deck.slides.at(-1).type, 'ending');
   for (const item of deck.slides[1].items) {
@@ -29,8 +29,8 @@ for (const deck of [frontend, backend]) {
 }
 assert.equal(combined.slides.length, 25);
 assert.deepEqual(backend.slides.find(slide => slide.type === 'questions').questions, []);
-assert.deepEqual(combined.slides.find(slide => slide.title === '백엔드 Q&A').questions, []);
-assert.equal(combined.slides.some(slide => slide.title === '백엔드 질문'), false);
+assert.deepEqual(combined.slides.find(slide => slide.title === '백엔드 질문').questions, []);
+assert.equal(backend.slides.find(slide => slide.type === 'questions').title, '질문');
 const lastFrontendStack = combined.slides.findLastIndex(slide => slide.type === 'tech' && slide.track === 'frontend');
 assert.equal(combined.slides[lastFrontendStack + 1].type, 'tech');
 assert.equal(combined.slides[lastFrontendStack + 1].track, 'backend');

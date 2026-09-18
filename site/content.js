@@ -115,7 +115,7 @@ const makeBackendSlides = () => [
       { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 9 },
       { title: '기술 스택', description: '설정 파일 기준 · 미정 항목', target: 12 },
       { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 13 },
-      { title: 'Q&A', description: '', target: 15 },
+      { title: '질문', description: '', target: 15 },
     ],
   },
   ...overviewSlides,
@@ -188,7 +188,7 @@ const makeBackendSlides = () => [
     ],
     footnote: '결과 전달 방식·재연결 처리·추첨 상세 구조 추가 예정 · 알림은 비동기 생성 및 실패 시 재시도',
   },
-  { type: 'questions', title: 'Q&A', label: '04 / Q&A', description: '', questions: [] },
+  { type: 'questions', title: '질문', label: '04 / QUESTIONS', description: '', questions: [] },
   { type: 'ending', shared: true, title: '감사합니다', label: 'GETDDO', description: '1차 멘토링' },
 ];
 
@@ -329,7 +329,7 @@ const makeCombinedSlides = () => {
     ...specific(backend, 'backend').filter(slide => slide.type === 'tech'),
     ...specific(backend, 'backend').filter(slide => slide.type !== 'tech'),
     { ...frontend.find(slide => slide.type === 'questions'), title: '프론트엔드 질문', track: 'frontend' },
-    { ...backend.find(slide => slide.type === 'questions'), title: '백엔드 Q&A', track: 'backend' },
+    { ...backend.find(slide => slide.type === 'questions'), title: '백엔드 질문', track: 'backend' },
     frontend.at(-1),
   ];
   slides[1].items = [
@@ -339,7 +339,7 @@ const makeCombinedSlides = () => {
     ['백엔드', '기술 스택 · 시연 범위 · 진행 상태', '기술 스택'],
     ['핵심 처리 흐름', '응모 · 추첨 · 실시간 결과', '응모 처리 흐름'],
     ['질문', '프론트엔드 · 웹에서 앱으로 확장', '프론트엔드 질문'],
-    ['백엔드 Q&A', '', '백엔드 Q&A'],
+    ['백엔드 질문', '', '백엔드 질문'],
   ].map(([title, description, destination]) => ({ title, description, target: slides.findIndex(slide => slide.title === destination && (title !== '백엔드' || slide.track === 'backend')) }));
   return slides;
 };
