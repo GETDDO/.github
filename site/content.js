@@ -115,7 +115,6 @@ const makeBackendSlides = () => [
       { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 9 },
       { title: '기술 스택', description: '설정 파일 기준 · 미정 항목', target: 12 },
       { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 13 },
-      { title: '질문', description: '설계 검토 및 정책 확인', target: 15 },
     ],
   },
   ...overviewSlides,
@@ -187,17 +186,6 @@ const makeBackendSlides = () => [
       ['실시간 결과', '발표 승인 후 접속 사용자 화면에 결과 반영. 재접속 시 결과 조회 API로 확인.'],
     ],
     footnote: '결과 전달 방식·재연결 처리·추첨 상세 구조 추가 예정 · 알림은 비동기 생성 및 실패 시 재시도',
-  },
-  {
-    type: 'questions', title: '질문', label: '04 / QUESTIONS',
-    description: '요구사항의 초기 방안을 기준으로 검토할 항목',
-    questions: [
-      'DB 트랜잭션·유일 제약·조건부 차감 방안에서 중복 요청과 동시 응모에 빠진 정합성 조건은?',
-      '응모 접수 완료 시점을 어디로 정할지? 마감·취소·월 경계 반환이 겹칠 때 처리 기준은?',
-      '응모권 사용 이벤트의 자동 추첨 시 미검토 건 처리와 추첨·재추첨 이력 보존에서 필요한 기준은?',
-      '실시간 현황·결과 전달에 폴링·SSE·WebSocket 중 어떤 방식이 적합할지? 갱신 주기와 재접속 처리는?',
-    ],
-    footnote: '설계 근거 및 대안 비교 질문 추가 예정',
   },
   { type: 'ending', shared: true, title: '감사합니다', label: 'GETDDO', description: '1차 멘토링' },
 ];
@@ -338,11 +326,7 @@ const makeCombinedSlides = () => {
     ...specific(frontend, 'frontend'),
     ...specific(backend, 'backend').filter(slide => slide.type === 'tech'),
     ...specific(backend, 'backend').filter(slide => slide.type !== 'tech'),
-    ...[frontend, backend].map((deck, index) => ({
-      ...deck.find(slide => slide.type === 'questions'),
-      title: index === 0 ? '프론트엔드 질문' : '백엔드 질문',
-      track: index === 0 ? 'frontend' : 'backend',
-    })),
+    { ...frontend.find(slide => slide.type === 'questions'), title: '프론트엔드 질문', track: 'frontend' },
     frontend.at(-1),
   ];
   slides[1].items = [
@@ -351,7 +335,7 @@ const makeCombinedSlides = () => {
     ['프론트엔드', '디자인 · 마스코트 · 게임 · 기술', '디자인 시스템'],
     ['백엔드', '기술 스택 · 시연 범위 · 진행 상태', '기술 스택'],
     ['핵심 처리 흐름', '응모 · 추첨 · 실시간 결과', '응모 처리 흐름'],
-    ['질문', '프론트엔드 · 백엔드', '프론트엔드 질문'],
+    ['질문', '프론트엔드 · 웹에서 앱으로 확장', '프론트엔드 질문'],
   ].map(([title, description, destination]) => ({ title, description, target: slides.findIndex(slide => slide.title === destination && (title !== '백엔드' || slide.track === 'backend')) }));
   return slides;
 };
