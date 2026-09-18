@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { rounds } from '../site/content.js';
 
-const { frontend, backend } = rounds[0].decks;
+const { frontend, backend, combined } = rounds[0].decks;
 assert.deepEqual(frontend.slides[0], backend.slides[0]);
 assert.deepEqual(frontend.slides.slice(7, 10), backend.slides.slice(9, 12));
 assert.equal(frontend.slides.some(slide => slide.title === 'ERD'), false);
@@ -30,6 +30,12 @@ for (const deck of [frontend, backend]) {
   assert.equal(deck.slides[arch.target].type, deck === frontend ? 'architecture' : 'image');
   assert.equal(deck.slides[deck.slides[1].items.at(-1).target].type, 'questions');
 }
+assert.equal(combined.slides.length, 25);
+for (const slide of frontend.slides.filter(slide => slide.shared)) {
+  assert.equal(combined.slides.filter(item => item.title === slide.title).length, 1);
+}
+for (const item of combined.slides[1].items) assert.ok(item.target > 1);
+assert.equal(combined.slides.filter(slide => slide.type === 'questions').length, 2);
 console.log('PASS shared cover/agenda/requirements, event/ticket/admin sections, agenda destinations');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../site');
@@ -60,10 +66,10 @@ try {
   await page.goto(base);
   await page.evaluate(() => document.fonts.ready);
   assert.equal(await page.locator('.round-card').count(), 3);
-  assert.equal(await page.locator('.track-links a').count(), 2);
-  assert.equal(await page.locator('.track-links button:disabled').count(), 4);
+  assert.equal(await page.locator('.track-links a').count(), 3);
+  assert.equal(await page.locator('.track-links button:disabled').count(), 6);
   assert.equal(await page.locator('.brand img').evaluate(img => img.complete && img.naturalWidth > 0), true);
-  pass('3 rounds, 2 active tracks, 4 locked tracks; logo and project-path assets');
+  pass('3 rounds, 3 active tracks, 6 locked tracks; logo and project-path assets');
   await page.locator('.track-links a').first().click();
   await page.waitForSelector('.slide-cover');
   assert.match(await page.title(), /프론트엔드/);
@@ -107,7 +113,7 @@ try {
   await page.locator('.fullscreen-exit').click();
   await page.waitForFunction(() => !document.fullscreenElement);
   pass('native fullscreen stays active on slide change and exits by button');
-  for (const track of ['frontend', 'backend']) {
+  for (const track of ['combined', 'frontend', 'backend']) {
     for (let i = 1; i <= rounds[0].decks[track].slides.length; i++) {
       await page.goto(`${base}#/mentoring/1/${track}/${i}`);
       await page.waitForSelector('.slide');
@@ -126,7 +132,7 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /백엔드/);
-  pass('all 36 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all 61 slides fit canvas without footer overlap; deep links survive reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
@@ -185,7 +191,7 @@ try {
   const original = await readFile(resolve(root, 'content.js'), 'utf8');
   overrideContent = original.replace('frontend: { enabled: false, slides: [] }', "frontend: { enabled: true, slides: makeSlides('frontend') }");
   await page.goto(base);
-  assert.equal(await page.locator('.track-links a').count(), 3);
+  assert.equal(await page.locator('.track-links a').count(), 4);
   await page.goto(`${base}#/mentoring/2/frontend/1`);
   await page.waitForSelector('.slide-cover');
   assert.match(await page.title(), /2차 멘토링/);

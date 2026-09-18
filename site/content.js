@@ -1,6 +1,7 @@
 // 발표 내용은 이 파일에서 편집합니다. 사용 가능한 레이아웃은 README.md 참고.
 export const tracks = {
   frontend: { name: '프론트엔드', english: 'Frontend', short: 'FE', description: '화면 및 API 연동' },
+  combined: { name: '통합 발표자료', english: 'Combined', short: 'ALL', description: '공통 · 프론트엔드 · 백엔드' },
   backend: { name: '백엔드', english: 'Backend', short: 'BE', description: 'API 및 데이터 처리' },
 };
 
@@ -301,16 +302,50 @@ const makeSlides = (track) => {
   ];
 };
 
+// 공통 슬라이드는 한 번만, 개별 내용은 원본 트랙에서 가져옵니다.
+const makeCombinedSlides = () => {
+  const frontend = makeSlides('frontend');
+  const backend = makeSlides('backend');
+  const specific = (slides, track) => slides
+    .filter(slide => !slide.shared && !['agenda', 'questions'].includes(slide.type))
+    .map(slide => ({ ...slide, track }));
+  const slides = [
+    commonSlides[0],
+    { type: 'agenda', title: '목차', label: 'CONTENTS', description: '공통 · 프론트엔드 · 백엔드', items: [] },
+    ...overviewSlides,
+    ...commonSlides.slice(2, 5),
+    ...specific(frontend, 'frontend'),
+    ...specific(backend, 'backend'),
+    ...[frontend, backend].map((deck, index) => ({
+      ...deck.find(slide => slide.type === 'questions'),
+      title: index === 0 ? '프론트엔드 질문' : '백엔드 질문',
+      track: index === 0 ? 'frontend' : 'backend',
+    })),
+    frontend.at(-1),
+  ];
+  slides[1].items = [
+    ['프로젝트 개요', '목표 · 문제 · 유사 서비스 · 차별점', '프로젝트 개요'],
+    ['요구사항', '이벤트 · 응모권 · 관리자', '이벤트'],
+    ['프론트엔드', '디자인 · 마스코트 · 게임 · 기술 · 아키텍처', '디자인 시스템'],
+    ['백엔드', '시연 범위 · 진행 상태 · 기술 스택', '시연 범위'],
+    ['백엔드 설계', '시스템 아키텍처 · ERD', '시스템 아키텍처'],
+    ['핵심 처리 흐름', '응모 · 추첨 · 실시간 결과', '응모 처리 흐름'],
+    ['질문', '프론트엔드 · 백엔드', '프론트엔드 질문'],
+  ].map(([title, description, destination]) => ({ title, description, target: slides.findIndex(slide => slide.title === destination) }));
+  return slides;
+};
+
 // 2·3차는 해당 트랙에 slides를 추가하고 enabled: true로 바꾸면 열립니다.
 export const rounds = [
   { id: '1', title: '1차 멘토링', subtitle: '요구사항 및 설계', description: '이벤트 · 응모권 · 관리자 · 아키텍처', stage: 'FOUNDATION', decks: {
     frontend: { enabled: true, slides: makeSlides('frontend') },
     backend: { enabled: true, slides: makeSlides('backend') },
+    combined: { enabled: true, slides: makeCombinedSlides() },
   } },
   { id: '2', title: '2차 멘토링', subtitle: '구현 진행 사항', description: '발표 자료 준비 중', stage: 'BUILD & REFINE', decks: {
-    frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] },
+    frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: false, slides: [] },
   } },
   { id: '3', title: '3차 멘토링', subtitle: '최종 구현 및 시연', description: '발표 자료 준비 중', stage: 'REVIEW & GROW', decks: {
-    frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] },
+    frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: false, slides: [] },
   } },
 ];
