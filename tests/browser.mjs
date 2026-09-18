@@ -30,12 +30,16 @@ for (const deck of [frontend, backend]) {
   assert.equal(deck.slides[arch.target].type, deck === frontend ? 'architecture' : 'image');
   assert.equal(deck.slides[deck.slides[1].items.at(-1).target].type, 'questions');
 }
-assert.equal(combined.slides.length, 25);
+assert.equal(combined.slides.length, 28);
 for (const slide of frontend.slides.filter(slide => slide.shared)) {
   assert.equal(combined.slides.filter(item => item.title === slide.title).length, 1);
 }
 for (const item of combined.slides[1].items) assert.ok(item.target > 1);
 assert.equal(combined.slides.filter(slide => slide.type === 'questions').length, 2);
+const feNames = frontend.slides.filter(slide => slide.type === 'tech').flatMap(slide => slide.items.map(item => item.name));
+assert.equal(feNames.length, 20);
+assert.equal(new Set(feNames).size, 20);
+assert.deepEqual(combined.slides.filter(slide => slide.type === 'tech' && slide.track === 'frontend').flatMap(slide => slide.items.map(item => item.name)), feNames);
 console.log('PASS shared cover/agenda/requirements, event/ticket/admin sections, agenda destinations');
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../site');
@@ -88,7 +92,7 @@ try {
   await page.waitForSelector('.slide-ending');
   assert.equal(await page.locator('[data-action=next]').isDisabled(), true);
   await page.keyboard.press('ArrowRight');
-  assert.match(page.url(), /frontend\/17$/);
+  assert.match(page.url(), /frontend\/20$/);
   await page.keyboard.press('Home');
   await page.waitForSelector('.slide-cover');
   await page.locator('[data-action=next]').click();
@@ -132,23 +136,23 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /백엔드/);
-  pass('all 61 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all 67 slides fit canvas without footer overlap; deep links survive reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
     await page.waitForSelector('.slide-tech');
     const text = await page.locator('.slide').innerText();
-    assert.match(text, track === 'backend' ? /Java/ : /팀 선택 확인 후/);
+    assert.match(text, track === 'backend' ? /Java/ : /TypeScript/);
     if (track === 'backend') {
       assert.match(text, /MySQL/);
       assert.match(text, /Redis/);
       assert.doesNotMatch(text, /JUnit/);
     }
     assert.equal(await page.locator('.content-card').count(), 0);
-    assert.equal(await page.locator('.tech-entry img').count(), track === 'backend' ? 7 : 4);
+    assert.equal(await page.locator('.tech-entry img').count(), 7);
     await page.waitForFunction(() => [...document.querySelectorAll('.tech-entry img')].every(img => img.complete && img.naturalWidth > 0));
   }
-  pass('both tech-stack agenda links, verified backend and pending frontend');
+  pass('both tech-stack agenda links, backend and frontend technology icons');
   await page.goto(`${base}#/mentoring/1/backend/2`);
   await page.locator('.agenda-item').filter({ hasText: 'ERD' }).click();
   await page.waitForSelector('.image-placeholder');
