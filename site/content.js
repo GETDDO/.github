@@ -16,7 +16,6 @@ const commonSlides = [
     type: 'agenda', shared: true, title: '목차', label: 'CONTENTS', description: '',
     items: [
       { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 2 },
-      { title: '아키텍처', description: '구성 및 연동', target: 5 },
       { title: '질문', description: '확인할 정책과 설계', target: 6 },
     ],
   },
@@ -115,10 +114,8 @@ const makeBackendSlides = () => [
       { title: '프로젝트 개요', description: '범위 · 진행 상태', target: 2 },
       { title: '요구사항', description: '이벤트 · 응모권 · 관리자', target: 9 },
       { title: '기술 스택', description: '설정 파일 기준 · 미정 항목', target: 12 },
-      { title: '시스템 아키텍처', description: '구성도 추가 예정', target: 13 },
-      { title: 'ERD', description: '테이블 및 관계 추가 예정', target: 14 },
-      { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 15 },
-      { title: '질문', description: '설계 검토 및 정책 확인', target: 17 },
+      { title: '핵심 처리 흐름', description: '응모 · 추첨 · 결과 발표', target: 13 },
+      { title: '질문', description: '설계 검토 및 정책 확인', target: 15 },
     ],
   },
   ...overviewSlides,
@@ -135,7 +132,7 @@ const makeBackendSlides = () => [
     description: '현재 자료에 반영된 내용과 추가할 자료',
     cards: [
       { label: 'REQUIREMENTS', title: '요구사항 정리', text: '이벤트·응모권·관리자 기능 정리. 자동 추첨 시 미검토 건, 중단·재개 조건, 월 경계 반환 정책은 확인 필요.', tag: '정리된 범위와 미정 정책 구분', tone: 'mint' },
-      { label: 'DESIGN', title: '설계 자료', text: '시스템 아키텍처, ERD, 기술 선택 근거, 상세 트랜잭션 경계와 연동 방식.', tag: '추가 예정', tone: 'yellow' },
+      { label: 'DESIGN', title: '설계 자료', text: '시스템 아키텍처, ERD, 기술 선택 근거, 상세 트랜잭션 경계와 연동 방식.', tag: '진행 중', tone: 'yellow' },
       { label: 'IMPLEMENTATION', title: '구현·검증 현황', text: '완료·진행 중 기능, 담당 범위, 개발 일정, 시연 화면 및 테스트 결과.', tag: '팀 진행 현황 확인 후 추가 예정', tone: 'pink' },
     ],
     footnote: '기능별 구현 완료 여부는 미확인 · 다음 처리 흐름은 요구사항 기준',
@@ -151,7 +148,7 @@ const makeBackendSlides = () => [
       { icon: 'redis', name: 'Redis', role: '도입 예정 · 적용 용도 추가 예정' },
       { icon: 'spring', name: 'Spring Data JPA', role: '데이터 접근' },
       { icon: 'flyway', name: 'Flyway', role: 'DB 스키마 변경 관리' },
-      { icon: 'gradle', name: 'Gradle', version: '9.7.1', role: '멀티모듈 빌드' },
+      { icon: 'gradle', name: 'Gradle', version: '9.7.1', role: '빌드 도구' },
     ],
     notesTitle: '확인할 항목',
     notes: [
@@ -162,19 +159,7 @@ const makeBackendSlides = () => [
     footnote: 'MySQL·Redis는 팀 선택 반영 · 나머지 버전은 저장소 설정 기준 · 실제 연동 완료 여부는 별도 확인',
   },
   {
-    type: 'image', title: '시스템 아키텍처', label: '03 / ARCHITECTURE',
-    description: '프론트 · 백엔드 · DB · 이미지 저장소 · 알림 처리 연결 구성',
-    src: '', alt: 'GETDDO 시스템 아키텍처', placeholder: '시스템 아키텍처 추가 예정', caption: '',
-    footnote: '기술 스택, 구성요소별 역할, 통신 방식 및 선택 이유 추가 예정',
-  },
-  {
-    type: 'image', title: 'ERD', label: '04 / ERD', description: '주요 테이블 및 관계',
-    // 완성한 이미지를 site/assets/에 넣고 src 지정. 예: 'assets/erd.svg'
-    src: '', alt: 'GETDDO 백엔드 ERD', placeholder: 'ERD 추가 예정', caption: '',
-    footnote: '응모권 잔액·이력, 응모, 추첨 실행·결과, 반환·회수의 연결 구조 검토 예정',
-  },
-  {
-    type: 'architecture', title: '응모 처리 흐름', label: '05 / ENTRY FLOW',
+    type: 'architecture', title: '응모 처리 흐름', label: '03 / ENTRY FLOW',
     description: '요구사항 기준 · 상세 처리 순서와 동시성 제어 방식 추가 예정',
     nodes: [
       { title: '접수 조건', subtitle: '응모 자격 · 모집 기간', detail: '멤버십 · 횟수 제한 · 중복 요청' },
@@ -189,7 +174,7 @@ const makeBackendSlides = () => [
     footnote: '실제 호출 순서도·트랜잭션 범위·실패 시 처리 상세 추가 예정',
   },
   {
-    type: 'architecture', title: '추첨·결과 발표 흐름', label: '05 / DRAW FLOW',
+    type: 'architecture', title: '추첨·결과 발표 흐름', label: '03 / DRAW FLOW',
     description: '추첨 결과 확정과 사용자에게 결과를 공개하는 시점 구분',
     nodes: [
       { title: '마감·대상 확정', subtitle: '유효 응모 · 제외 결과 반영', detail: '추첨 대상 및 조건 스냅샷 보관' },
@@ -204,7 +189,7 @@ const makeBackendSlides = () => [
     footnote: '결과 전달 방식·재연결 처리·추첨 상세 구조 추가 예정 · 알림은 비동기 생성 및 실패 시 재시도',
   },
   {
-    type: 'questions', title: '질문', label: '06 / QUESTIONS',
+    type: 'questions', title: '질문', label: '04 / QUESTIONS',
     description: '요구사항의 초기 방안을 기준으로 검토할 항목',
     questions: [
       'DB 트랜잭션·유일 제약·조건부 차감 방안에서 중복 요청과 동시 응모에 빠진 정합성 조건은?',
@@ -212,7 +197,7 @@ const makeBackendSlides = () => [
       '응모권 사용 이벤트의 자동 추첨 시 미검토 건 처리와 추첨·재추첨 이력 보존에서 필요한 기준은?',
       '실시간 현황·결과 전달에 폴링·SSE·WebSocket 중 어떤 방식이 적합할지? 갱신 주기와 재접속 처리는?',
     ],
-    footnote: '아키텍처·ERD 완성 후 설계 근거 및 대안 비교 질문 추가 예정',
+    footnote: '설계 근거 및 대안 비교 질문 추가 예정',
   },
   { type: 'ending', shared: true, title: '감사합니다', label: 'GETDDO', description: '1차 멘토링' },
 ];
@@ -230,7 +215,6 @@ const makeSlides = (track) => {
         { title: '게임 컨셉', description: '게임 후보 · 플레이 흐름 · 보상', target: 12 },
         { title: '기술 스택', description: '기본·상태 · UI·입력 · 모션 · 개발 도구', target: 13 },
         { ...slide.items[1], target: 17 },
-        { ...slide.items[2], target: 18 },
       ],
     } : slide).flatMap((slide, index) => index === 2 ? [...overviewSlides, slide] : [slide]),
     {
@@ -326,21 +310,7 @@ const makeSlides = (track) => {
       footnote: '팀 제공 기술 목록 · 버전 및 세부 적용 범위 추가 예정',
     },
     {
-      type: 'architecture', title: '아키텍처',
-      label: '06 / ARCHITECTURE', description: '구성 초안 · 기술 스택 및 연결 구조 작성 예정',
-      nodes: [
-        { title: '사용자 화면', subtitle: '이벤트 · 출석 · 게임', detail: '화면 / 컴포넌트' },
-        { title: '상태 & 요청', subtitle: '로딩 · 성공 · 오류', detail: '상태 관리 / API 연동' },
-        { title: '서버와 연결', subtitle: '응모 · 현황 · 결과', detail: '연동 계약 / 갱신 방식' },
-      ],
-      notes: [
-        ['화면 설계', '주요 사용자 흐름과 공통 컴포넌트'],
-        ['연동 계약', '에러 코드 · 페이지네이션 · 멱등 키'],
-        ['논의할 지점', '실시간 현황 갱신 방식과 주기'],
-      ],
-    },
-    {
-      type: 'questions', title: '질문', label: '07 / QUESTIONS',
+      type: 'questions', title: '질문', label: '06 / QUESTIONS',
       description: '웹에서 앱으로 확장',
       questions: [
         '현재 웹사이트로 제작 후 앱 등으로도 변환하려고 하는데, 어떤 방법으로 마이그레이션을 진행하는지?',
@@ -377,9 +347,8 @@ const makeCombinedSlides = () => {
   slides[1].items = [
     ['프로젝트 개요', '목표 · 문제 · 유사 서비스 · 차별점', '프로젝트 개요'],
     ['요구사항', '이벤트 · 응모권 · 관리자', '이벤트'],
-    ['프론트엔드', '디자인 · 마스코트 · 게임 · 기술 · 아키텍처', '디자인 시스템'],
+    ['프론트엔드', '디자인 · 마스코트 · 게임 · 기술', '디자인 시스템'],
     ['백엔드', '시연 범위 · 진행 상태 · 기술 스택', '시연 범위'],
-    ['백엔드 설계', '시스템 아키텍처 · ERD', '시스템 아키텍처'],
     ['핵심 처리 흐름', '응모 · 추첨 · 실시간 결과', '응모 처리 흐름'],
     ['질문', '프론트엔드 · 백엔드', '프론트엔드 질문'],
   ].map(([title, description, destination]) => ({ title, description, target: slides.findIndex(slide => slide.title === destination) }));
@@ -388,7 +357,7 @@ const makeCombinedSlides = () => {
 
 // 2·3차는 해당 트랙에 slides를 추가하고 enabled: true로 바꾸면 열립니다.
 export const rounds = [
-  { id: '1', title: '1차 멘토링', subtitle: '요구사항 및 설계', description: '이벤트 · 응모권 · 관리자 · 아키텍처', stage: 'FOUNDATION', decks: {
+  { id: '1', title: '1차 멘토링', subtitle: '요구사항 및 설계', description: '이벤트 · 응모권 · 관리자', stage: 'FOUNDATION', decks: {
     frontend: { enabled: true, slides: makeSlides('frontend') },
     backend: { enabled: true, slides: makeSlides('backend') },
     combined: { enabled: true, slides: makeCombinedSlides() },
