@@ -28,6 +28,10 @@ for (const deck of [frontend, backend]) {
   assert.equal(deck.slides[deck.slides[1].items.at(-1).target].type, 'questions');
 }
 assert.equal(combined.slides.length, 25);
+const lastFrontendStack = combined.slides.findLastIndex(slide => slide.type === 'tech' && slide.track === 'frontend');
+assert.equal(combined.slides[lastFrontendStack + 1].type, 'tech');
+assert.equal(combined.slides[lastFrontendStack + 1].track, 'backend');
+assert.equal(combined.slides[1].items.find(item => item.title === '백엔드').target, lastFrontendStack + 1);
 for (const slide of frontend.slides.filter(slide => slide.shared)) {
   assert.equal(combined.slides.filter(item => item.title === slide.title).length, 1);
 }

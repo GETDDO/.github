@@ -336,7 +336,8 @@ const makeCombinedSlides = () => {
     ...overviewSlides,
     ...commonSlides.slice(2, 5),
     ...specific(frontend, 'frontend'),
-    ...specific(backend, 'backend'),
+    ...specific(backend, 'backend').filter(slide => slide.type === 'tech'),
+    ...specific(backend, 'backend').filter(slide => slide.type !== 'tech'),
     ...[frontend, backend].map((deck, index) => ({
       ...deck.find(slide => slide.type === 'questions'),
       title: index === 0 ? '프론트엔드 질문' : '백엔드 질문',
@@ -348,10 +349,10 @@ const makeCombinedSlides = () => {
     ['프로젝트 개요', '목표 · 문제 · 유사 서비스 · 차별점', '프로젝트 개요'],
     ['요구사항', '이벤트 · 응모권 · 관리자', '이벤트'],
     ['프론트엔드', '디자인 · 마스코트 · 게임 · 기술', '디자인 시스템'],
-    ['백엔드', '시연 범위 · 진행 상태 · 기술 스택', '시연 범위'],
+    ['백엔드', '기술 스택 · 시연 범위 · 진행 상태', '기술 스택'],
     ['핵심 처리 흐름', '응모 · 추첨 · 실시간 결과', '응모 처리 흐름'],
     ['질문', '프론트엔드 · 백엔드', '프론트엔드 질문'],
-  ].map(([title, description, destination]) => ({ title, description, target: slides.findIndex(slide => slide.title === destination) }));
+  ].map(([title, description, destination]) => ({ title, description, target: slides.findIndex(slide => slide.title === destination && (title !== '백엔드' || slide.track === 'backend')) }));
   return slides;
 };
 
