@@ -845,15 +845,7 @@ img {
   font-size:11px;
   margin-left:7px;
 }
-.slide-footnote {
-  position:absolute;
-  bottom:90px;
-  left:62px;
-  right:62px;
-  font-size:11px;
-  line-height:1.6;
-  color:var(--muted);
-}
+
 .slide-cover {
   background:linear-gradient(110deg,#fff 35%,#f2fcf6 100%);
 }
@@ -1119,7 +1111,7 @@ img {
   border-radius:4px;
   padding:1px 5px;
 }
-.slide-questions .slide-footer>span,.slide-questions .slide-footer>b>span,.slide-questions .slide-footnote {
+.slide-questions .slide-footer>span,.slide-questions .slide-footer>b>span {
   color:#9aa1ab;
 }
 .text-layout {

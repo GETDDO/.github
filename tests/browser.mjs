@@ -125,8 +125,9 @@ try {
       await page.goto(`${base}#/mentoring/1/${track}/${i}`);
       await page.waitForSelector('.slide');
       await page.evaluate(() => document.fonts.ready);
+      assert.equal(await page.locator('.slide-footnote').count(), 0);
       const overflow = await page.locator('.slide').evaluate(slide => {
-        const footer = slide.querySelector('.slide-footnote').getBoundingClientRect();
+        const footer = slide.querySelector('.slide-footer').getBoundingClientRect();
         const content = slide.querySelector('.slide-content');
         const bounds = slide.getBoundingClientRect();
         return [...content.querySelectorAll('h1,h2,h3,p,li,td,.ticket-mascot,.ending-mascot,.mascot-layout>img,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
