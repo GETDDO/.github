@@ -3,7 +3,7 @@ export const secondRoundSlides = [
   {
     type: 'cover', title: 'GETDDO\n2차 멘토링', label: 'MENTORING 02',
     description: '멤버십 이벤트 플랫폼 · 서비스 기획과 설계',
-    tags: ['주요 기능', '서비스 비교·차별점', '화면·시스템 설계'],
+    tags: ['주요 기능', '서비스 비교·차별점', '시스템 설계'],
   },
   {
     type: 'agenda', title: '목차', label: 'CONTENTS',
@@ -12,9 +12,8 @@ export const secondRoundSlides = [
       { title: '서비스 소개', description: '만들려는 서비스 · 대상 고객', target: 2 },
       { title: '주요 기능', description: '사용자 기능 · 관리자 기능', target: 3 },
       { title: '유사 서비스·차별점', description: '서비스별 비교 · GETDDO의 특징', target: 5 },
-      { title: '화면 디자인', description: '사용자 · 관리자 실제 화면', target: 7 },
-      { title: '기술·데이터 설계', description: '기술 스택 · 아키텍처 · ERD', target: 9 },
-      { title: '사용자 흐름', description: '화면 이동 · 사용자 행동', target: 12 },
+      { title: '기술·데이터 설계', description: '기술 스택 · 아키텍처 · ERD', target: 7 },
+      { title: '사용자 흐름', description: '화면 이동 · 사용자 행동', target: 10 },
     ],
   },
   {
@@ -67,19 +66,7 @@ export const secondRoundSlides = [
     ],
   },
   {
-    type: 'image', title: '화면 디자인 · 사용자', label: '04 / USER SCREENS', track: 'frontend',
-    description: '브랜드 컬러와 마스코트를 반영한 실제 화면 · 홈 → 이벤트 상세·응모 → 응모권·결과',
-    src: '', alt: 'GETDDO 사용자 화면 디자인', caption: '',
-    placeholder: '실제 디자인 화면 추가 예정',
-  },
-  {
-    type: 'image', title: '화면 디자인 · 관리자', label: '04 / ADMIN SCREENS', track: 'frontend',
-    description: '이벤트 관리 → 응모·어뷰징 검토 → 추첨 결과 발표',
-    src: '', alt: 'GETDDO 관리자 화면 디자인', caption: '',
-    placeholder: '실제 디자인 화면 추가 예정',
-  },
-  {
-    type: 'tech', title: '핵심 기술 스택', label: '05 / TECH STACK',
+    type: 'tech', title: '핵심 기술 스택', label: '04 / TECH STACK',
     description: '프론트엔드·백엔드의 주요 기술과 역할',
     items: [
       { icon: 'react', name: 'React · TypeScript', role: '화면 개발 · Vite 빌드' },
@@ -87,6 +74,7 @@ export const secondRoundSlides = [
       { icon: 'tanstack', name: 'TanStack Query', role: '서버 상태 · API 연동' },
       { icon: 'mysql', name: 'JPA · MySQL', role: '데이터 저장 · 트랜잭션' },
       { icon: 'tailwindcss', name: 'Tailwind · shadcn/ui', role: 'UI 스타일 · 컴포넌트' },
+      { icon: 'redis', name: 'Redis', role: '백엔드 인메모리 데이터 저장소' },
       { icon: 'flyway', name: 'Flyway · Gradle', role: 'DB 스키마 변경 · 빌드' },
     ],
     notesTitle: '주요 보조 도구',
@@ -97,18 +85,18 @@ export const secondRoundSlides = [
     ],
   },
   {
-    type: 'image', layout: 'diagram', title: '시스템 아키텍처', label: '05 / SYSTEM ARCHITECTURE',
+    type: 'image', layout: 'diagram', title: '시스템 아키텍처', label: '04 / SYSTEM ARCHITECTURE',
     description: '2개 가용 영역에 ALB·EC2 배치. RDS(MySQL)·ElastiCache를 공유하고, S3로 파일을 저장하며 CloudWatch로 로그·지표를 확인합니다.',
     src: 'assets/round2-architecture.png', alt: 'GETDDO AWS 시스템 아키텍처: 2개 가용 영역의 ALB·EC2, 공유 RDS·ElastiCache, S3·CloudWatch', caption: '',
   },
   {
-    type: 'image', title: 'ERD', label: '05 / DATA MODEL', track: 'backend',
+    type: 'image', title: 'ERD', label: '04 / DATA MODEL', track: 'backend',
     description: '사용자·이벤트·응모권·응모·추첨을 중심으로 주요 엔티티와 관계 설명',
     src: '', alt: 'GETDDO ERD', caption: '',
     placeholder: 'ERD 이미지 추가 예정',
   },
   {
-    type: 'image', layout: 'journey', title: '사용자 이용 흐름', label: '06 / USER JOURNEY',
+    type: 'image', layout: 'journey', title: '사용자 이용 흐름', label: '05 / USER JOURNEY',
     description: '홈에서 원하는 활동을 선택하고, 이벤트에 응모한 뒤 당첨 결과를 확인합니다.',
     src: 'assets/round2-user-journey.svg',
     alt: '홈에서 출석·미션·게임으로 응모권을 모으거나 바로 이벤트를 선택합니다. 상세 확인과 응모 후 내 응모 내역에서 발표를 기다리고, 알림함 또는 이벤트에서 당첨 결과를 확인합니다.', caption: '',
