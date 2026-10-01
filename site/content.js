@@ -1,3 +1,5 @@
+import { secondRoundSlides } from './round2.js';
+
 // 발표 내용은 이 파일에서 편집합니다. 사용 가능한 레이아웃은 README.md 참고.
 export const tracks = {
   frontend: { name: '프론트엔드', english: 'Frontend', short: 'FE', description: '화면 및 API 연동' },
@@ -337,17 +339,7 @@ export const rounds = [
     combined: { enabled: true, slides: makeCombinedSlides() },
   } },
   { id: '2', title: '2차 멘토링', subtitle: '구현 진행 사항', description: '프론트엔드 · 백엔드 통합 발표', stage: 'BUILD & REFINE', decks: {
-    combined: { enabled: true, slides: [
-      {
-        type: 'cover', title: 'GETDDO\n2차 멘토링', label: 'MENTORING 02',
-        description: '프론트엔드 · 백엔드 통합 발표', tags: ['구현 진행 사항'],
-      },
-      {
-        type: 'text', title: '발표 내용 준비 중', label: 'WORK IN PROGRESS',
-        paragraphs: ['2차 멘토링에서 공유할 내용을 추가할 예정입니다.'],
-      },
-      { type: 'ending', title: '감사합니다', label: 'GETDDO', description: '2차 멘토링' },
-    ] },
+    combined: { enabled: true, slides: secondRoundSlides },
   } },
   { id: '3', title: '3차 멘토링', subtitle: '최종 구현 및 시연', description: '발표 자료 준비 중', stage: 'REVIEW & GROW', decks: {
     frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: false, slides: [] },
