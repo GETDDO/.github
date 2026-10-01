@@ -141,7 +141,7 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /2차 멘토링.*통합 발표자료/);
-  pass('all 80 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all 70 slides fit canvas without footer overlap; deep links survive reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
