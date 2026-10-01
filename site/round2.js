@@ -14,6 +14,7 @@ export const secondRoundSlides = [
       { title: '유사 서비스·차별점', description: '서비스별 비교 · GETDDO의 특징', target: 5 },
       { title: '기술·데이터 설계', description: '기술 스택 · 아키텍처 · ERD', target: 7 },
       { title: '사용자 흐름', description: '화면 이동 · 사용자 행동', target: 10 },
+      { title: '설계 검토·질문', description: '정해야 할 것 · 멘토님께 여쭤볼 내용', target: 11 },
     ],
   },
   {
@@ -69,13 +70,13 @@ export const secondRoundSlides = [
     type: 'tech', title: '핵심 기술 스택', label: '04 / TECH STACK',
     description: '프론트엔드·백엔드의 주요 기술과 역할',
     items: [
-      { icon: 'react', name: 'React · TypeScript', role: '화면 개발 · Vite 빌드' },
-      { icon: 'spring', name: 'Spring Boot · Java', role: 'API · 비즈니스 로직' },
-      { icon: 'tanstack', name: 'TanStack Query', role: '서버 상태 · API 연동' },
-      { icon: 'mysql', name: 'JPA · MySQL', role: '데이터 저장 · 트랜잭션' },
-      { icon: 'tailwindcss', name: 'Tailwind · shadcn/ui', role: 'UI 스타일 · 컴포넌트' },
-      { icon: 'redis', name: 'Redis', role: '백엔드 인메모리 데이터 저장소' },
-      { icon: 'flyway', name: 'Flyway · Gradle', role: 'DB 스키마 변경 · 빌드' },
+      { icon: 'react', track: 'frontend', name: 'React · TypeScript', role: '화면 개발 · Vite 빌드' },
+      { icon: 'spring', track: 'backend', name: 'Spring Boot · Java', role: 'API · 비즈니스 로직' },
+      { icon: 'tanstack', track: 'frontend', name: 'TanStack Query', role: '서버 상태 · API 연동' },
+      { icon: 'mysql', track: 'backend', name: 'JPA · MySQL', role: '데이터 저장 · 트랜잭션' },
+      { icon: 'tailwindcss', track: 'frontend', name: 'Tailwind · shadcn/ui', role: 'UI 스타일 · 컴포넌트' },
+      { icon: 'redis', track: 'backend', name: 'Redis', role: '백엔드 인메모리 데이터 저장소' },
+      { icon: 'flyway', track: 'backend', name: 'Flyway · Gradle', role: 'DB 스키마 변경 · 빌드' },
     ],
     notesTitle: '주요 보조 도구',
     notes: [
@@ -100,6 +101,24 @@ export const secondRoundSlides = [
     description: '홈에서 원하는 활동을 선택하고, 이벤트에 응모한 뒤 당첨 결과를 확인합니다.',
     src: 'assets/round2-user-journey.svg',
     alt: '홈에서 출석·미션·게임으로 응모권을 모으거나 바로 이벤트를 선택합니다. 상세 확인과 응모 후 내 응모 내역에서 발표를 기다리고, 알림함 또는 이벤트에서 당첨 결과를 확인합니다.', caption: '',
+  },
+  {
+    type: 'cards', title: '구현할 때 정해야 할 것', label: '06 / DESIGN REVIEW',
+    description: '응모가 겹치거나, 검토가 끝나기 전에 이벤트가 마감되는 경우를 살펴봤습니다.',
+    cards: [
+      { label: '01', title: '응모권 1장으로 두 번 응모하면', text: '응모와 응모권 차감은 같이 성공하거나 같이 취소돼야 합니다. DB 트랜잭션·유일 제약·조건부 차감을 먼저 적용할 계획입니다.', tag: '확인할 것: 중복 응모 · 초과 차감', tone: 'mint' },
+      { label: '02', title: '서버 두 대가 동시에 추첨하면', text: '같은 이벤트의 최초 추첨은 한 번만 확정돼야 합니다. 재추첨은 별도 실행으로 남깁니다. 중복 실행을 막을 방법을 정해야 합니다.', tag: '결정할 것: 중복 실행 방지 방식', tone: 'yellow' },
+      { label: '03', title: '미검토 응모가 남아 있으면', text: '응모권 사용 이벤트는 마감 후 자동 추첨합니다. 검토가 남아 있을 때 추첨을 기다릴지, 먼저 진행할지 기준이 필요합니다.', tag: '결정할 것: 미검토 응모 처리', tone: 'pink' },
+    ],
+  },
+  {
+    type: 'questions', title: '멘토님께 여쭤볼 내용', label: '06 / MENTORING',
+    description: '서비스 방향, 먼저 만들 기능, 백엔드 구성에 대해 의견을 듣고 싶습니다.',
+    questions: [
+      '기존 리워드 서비스와 비교했을 때, 멤버십 고객이 GETDDO를 쓸 이유가 충분히 보이나요?',
+      '출석·이벤트 응모·결과 확인을 먼저 완성하고 미션·게임을 붙이는 순서로 개발해도 괜찮을까요?',
+      'EC2 두 대에서 응모·추첨이 겹칠 때, DB에서 처리할 부분과 Redis에 맡길 부분을 어떻게 나누는 게 좋을까요?',
+    ],
   },
   { type: 'ending', title: '감사합니다', label: 'GETDDO', description: '2차 멘토링' },
 ];

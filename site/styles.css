@@ -1644,6 +1644,9 @@ kbd {
 /* Technology logos on white; status and follow-up notes stay separate. */
 .tech-layout { display:grid; grid-template-columns:minmax(0, 1fr) 255px; gap:40px; margin-top:16px; }
 .tech-list { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:0 28px; }
+.tech-column-title { margin:0; padding-bottom:12px; font-size:14px; font-weight:700; color:var(--mint-dark); }
+.tech-entry[data-track="frontend"] { grid-column:1; }
+.tech-entry[data-track="backend"] { grid-column:2; }
 .tech-entry { display:flex; align-items:center; gap:18px; min-height:116px; padding:19px 0; border-bottom:1px solid var(--line); }
 .tech-entry img { width:58px; height:58px; object-fit:contain; flex-shrink:0; }
 .tech-entry>div { min-width:0; }

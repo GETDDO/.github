@@ -158,6 +158,15 @@ try {
     await page.waitForFunction(() => [...document.querySelectorAll('.tech-entry img')].every(img => img.complete && img.naturalWidth > 0));
   }
   pass('both tech-stack agenda links, backend and frontend technology icons');
+  await page.goto(`${base}#/mentoring/2/combined/2`);
+  await page.locator('.agenda-item').filter({ hasText: '기술·데이터 설계' }).click();
+  await page.waitForSelector('.slide-tech');
+  const frontendBox = await page.locator('.tech-entry').filter({ hasText: 'React · TypeScript' }).boundingBox();
+  const backendBox = await page.locator('.tech-entry').filter({ hasText: 'Spring Boot · Java' }).boundingBox();
+  const buildBox = await page.locator('.tech-entry').filter({ hasText: 'Flyway · Gradle' }).boundingBox();
+  assert.ok(buildBox.x > frontendBox.x && Math.abs(buildBox.x - backendBox.x) < 1, 'Flyway/Gradle must align with the backend column');
+  assert.deepEqual(await page.locator('.tech-column-title').allTextContents(), ['프론트엔드', '백엔드']);
+  pass('combined tech stack labels both columns and keeps Flyway/Gradle with backend');
   await page.goto(`${base}#/mentoring/1/backend/2`);
   await page.locator('.agenda-item').filter({ hasText: '핵심 처리 흐름' }).click();
   await page.waitForSelector('.slide-architecture');
