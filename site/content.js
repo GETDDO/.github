@@ -329,15 +329,25 @@ const makeCombinedSlides = () => {
   return slides;
 };
 
-// 2·3차는 해당 트랙에 slides를 추가하고 enabled: true로 바꾸면 열립니다.
+// 2차는 통합 자료만 사용합니다. 3차는 slides를 추가하고 enabled: true로 바꾸면 열립니다.
 export const rounds = [
   { id: '1', title: '1차 멘토링', subtitle: '요구사항 및 설계', description: '이벤트 · 응모권 · 관리자', stage: 'FOUNDATION', decks: {
     frontend: { enabled: true, slides: makeSlides('frontend') },
     backend: { enabled: true, slides: makeSlides('backend') },
     combined: { enabled: true, slides: makeCombinedSlides() },
   } },
-  { id: '2', title: '2차 멘토링', subtitle: '구현 진행 사항', description: '발표 자료 준비 중', stage: 'BUILD & REFINE', decks: {
-    frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: false, slides: [] },
+  { id: '2', title: '2차 멘토링', subtitle: '구현 진행 사항', description: '프론트엔드 · 백엔드 통합 발표', stage: 'BUILD & REFINE', decks: {
+    combined: { enabled: true, slides: [
+      {
+        type: 'cover', title: 'GETDDO\n2차 멘토링', label: 'MENTORING 02',
+        description: '프론트엔드 · 백엔드 통합 발표', tags: ['구현 진행 사항'],
+      },
+      {
+        type: 'text', title: '발표 내용 준비 중', label: 'WORK IN PROGRESS',
+        paragraphs: ['2차 멘토링에서 공유할 내용을 추가할 예정입니다.'],
+      },
+      { type: 'ending', title: '감사합니다', label: 'GETDDO', description: '2차 멘토링' },
+    ] },
   } },
   { id: '3', title: '3차 멘토링', subtitle: '최종 구현 및 시연', description: '발표 자료 준비 중', stage: 'REVIEW & GROW', decks: {
     frontend: { enabled: false, slides: [] }, backend: { enabled: false, slides: [] }, combined: { enabled: false, slides: [] },

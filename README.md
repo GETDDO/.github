@@ -14,9 +14,10 @@ python3 -m http.server 4173 --directory site
 
 ## 화면 구성
 
-- 메인: 1·2·3차 멘토링 → 프론트엔드 / 백엔드 선택
+- 메인: 1·2·3차 멘토링 → 발표 자료 선택. 2차는 통합 발표자료만 제공
 - 1차: 공통 표지 · 목차 · 이벤트 · 응모권 · 관리자 → 트랙별 아키텍처 · 질문 → 공통 감사합니다, 프론트 17장 / 백엔드 19장(개요·진행 상태·처리 흐름 포함)
-- 2·3차: 준비 중, 링크 및 직접 URL 접근 비활성화
+- 2차: 통합 발표자료 3장(표지 · 내용 준비 중 · 감사합니다), `#/mentoring/2/combined/1`
+- 3차: 준비 중, 링크 및 직접 URL 접근 비활성화
 - 발표: 좌측 슬라이드 목록, 이전/다음, 전체 화면, 현재 슬라이드 주소 공유
 - 방향키 / Page Up·Down / Space: 이동, Home·End: 첫 장·마지막 장
 - F: 전체 화면 전환, 전체 화면 종료 버튼 또는 브라우저 Esc: 종료
@@ -61,17 +62,19 @@ python3 -m http.server 4173 --directory site
 }
 ```
 
-## 2·3차 열기
+## 발표 내용 추가 및 3차 열기
 
-트랙별로 내용과 공개 여부를 관리합니다. 예를 들어 2차 프론트엔드:
+2차 내용은 `site/content.js`의 `rounds` → `id: '2'` → `decks.combined.slides`에 추가합니다. 차수에 없는 트랙은 메인에 표시하지 않습니다.
+
+3차는 트랙별로 내용과 공개 여부를 관리합니다. 예를 들어 3차 프론트엔드:
 
 ```js
 frontend: {
   enabled: true,
   slides: [
     {
-      type: 'cover', label: '02 / SECOND MENTORING',
-      title: '설계를 경험으로.', description: '2차 프론트엔드 멘토링', tags: ['구현', '사용자 경험'],
+      type: 'cover', label: '03 / THIRD MENTORING',
+      title: '최종 구현 및 시연', description: '3차 프론트엔드 멘토링', tags: ['구현', '사용자 경험'],
     },
     { type: 'text', title: '이번 멘토링에서 나눌 내용', paragraphs: ['팀 발표 내용을 입력합니다.'] },
   ],

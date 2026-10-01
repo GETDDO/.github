@@ -70,10 +70,12 @@ try {
   await page.goto(base);
   await page.evaluate(() => document.fonts.ready);
   assert.equal(await page.locator('.round-card').count(), 3);
-  assert.equal(await page.locator('.track-links a').count(), 3);
-  assert.equal(await page.locator('.track-links button:disabled').count(), 6);
+  assert.equal(await page.locator('.track-links a').count(), 4);
+  assert.equal(await page.locator('.track-links button:disabled').count(), 3);
+  assert.equal(await page.locator('.round-card').nth(1).locator('.track-links > *').count(), 1);
+  assert.equal(await page.locator('.round-card').nth(1).locator('.track-links a').getAttribute('href'), '#/mentoring/2/combined/1');
   assert.equal(await page.locator('.brand img').evaluate(img => img.complete && img.naturalWidth > 0), true);
-  pass('3 rounds, 3 active tracks, 6 locked tracks; logo and project-path assets');
+  pass('3 rounds, 4 active tracks, 3 locked tracks; logo and project-path assets');
   await page.locator('.track-links a').first().click();
   await page.waitForSelector('.slide-cover');
   assert.match(await page.title(), /프론트엔드/);
@@ -117,9 +119,11 @@ try {
   await page.locator('.fullscreen-exit').click();
   await page.waitForFunction(() => !document.fullscreenElement);
   pass('native fullscreen stays active on slide change and exits by button');
-  for (const track of ['combined', 'frontend', 'backend']) {
-    for (let i = 1; i <= rounds[0].decks[track].slides.length; i++) {
-      await page.goto(`${base}#/mentoring/1/${track}/${i}`);
+  for (const round of rounds) for (const track of ['combined', 'frontend', 'backend']) {
+    const deck = round.decks[track];
+    if (!deck?.enabled) continue;
+    for (let i = 1; i <= deck.slides.length; i++) {
+      await page.goto(`${base}#/mentoring/${round.id}/${track}/${i}`);
       await page.waitForSelector('.slide');
       await page.evaluate(() => document.fonts.ready);
       assert.equal(await page.locator('.slide-footnote').count(), 0);
@@ -132,12 +136,12 @@ try {
           return r.bottom > footer.top + 2 || r.right > bounds.right + 2 || r.left < bounds.left - 2;
         }).map(el => el.textContent);
       });
-      assert.deepEqual(overflow, [], `${track} ${i} overflows footer/canvas`);
+      assert.deepEqual(overflow, [], `${round.id} ${track} ${i} overflows footer/canvas`);
     }
   }
   await page.reload();
-  assert.match(await page.title(), /백엔드/);
-  pass('all 57 slides fit canvas without footer overlap; deep links survive reload');
+  assert.match(await page.title(), /2차 멘토링.*통합 발표자료/);
+  pass('all 60 slides fit canvas without footer overlap; deep links survive reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();
@@ -159,7 +163,7 @@ try {
   await page.waitForSelector('.slide-architecture');
   assert.equal(await page.locator('.slide-heading h1').innerText(), '응모 처리 흐름');
   pass('backend entry flow agenda link after design slide removal');
-  for (const hash of ['#/mentoring/2/frontend/1', '#/mentoring/3/backend/1', '#/broken']) {
+  for (const hash of ['#/mentoring/2/frontend/1', '#/mentoring/2/backend/1', '#/mentoring/3/backend/1', '#/broken']) {
     await page.goto(base + hash);
     await page.waitForSelector('.notice');
     assert.equal(await page.locator('.slide').count(), 0);
@@ -192,10 +196,10 @@ try {
   const original = await readFile(resolve(root, 'content.js'), 'utf8');
   overrideContent = original.replace('frontend: { enabled: false, slides: [] }', "frontend: { enabled: true, slides: makeSlides('frontend') }");
   await page.goto(base);
-  assert.equal(await page.locator('.track-links a').count(), 4);
-  await page.goto(`${base}#/mentoring/2/frontend/1`);
+  assert.equal(await page.locator('.track-links a').count(), 5);
+  await page.goto(`${base}#/mentoring/3/frontend/1`);
   await page.waitForSelector('.slide-cover');
-  assert.match(await page.title(), /2차 멘토링/);
+  assert.match(await page.title(), /3차 멘토링/);
   pass('future round becomes available through content configuration');
   overrideContent = original.replace('frontend: { enabled: false, slides: [] }', `frontend: { enabled: true, slides: [
     { type:'text', title:'본문', paragraphs:['핵심 내용'], bullets:['확인 항목'] },
@@ -204,7 +208,7 @@ try {
   ] }`);
   await page.reload();
   for (const [i, type] of ['text','split','image'].entries()) {
-    await page.goto(`${base}#/mentoring/2/frontend/${i + 1}`);
+    await page.goto(`${base}#/mentoring/3/frontend/${i + 1}`);
     await page.waitForSelector(`.slide-${type}`);
   }
   pass('extensible text, split and image layouts');
