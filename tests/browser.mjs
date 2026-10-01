@@ -131,7 +131,7 @@ try {
         const footer = slide.querySelector('.slide-footer').getBoundingClientRect();
         const content = slide.querySelector('.slide-content');
         const bounds = slide.getBoundingClientRect();
-        return [...content.querySelectorAll('h1,h2,h3,p,li,td,.ticket-mascot,.ending-mascot,.mascot-layout>img,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
+        return [...content.querySelectorAll('h1,h2,h3,p,li,td,.ticket-mascot,.ending-mascot,.mascot-layout>img,.image-layout img,.content-card,.arch-node,.agenda-item,.tech-entry,.tech-notes')].filter(el => {
           const r = el.getBoundingClientRect();
           return r.bottom > footer.top + 2 || r.right > bounds.right + 2 || r.left < bounds.left - 2;
         }).map(el => el.textContent);
@@ -141,7 +141,7 @@ try {
   }
   await page.reload();
   assert.match(await page.title(), /2차 멘토링.*통합 발표자료/);
-  pass('all 70 slides fit canvas without footer overlap; deep links survive reload');
+  pass('all published slides fit canvas without footer overlap; deep links survive reload');
   for (const track of ['frontend', 'backend']) {
     await page.goto(`${base}#/mentoring/1/${track}/2`);
     await page.locator('.agenda-item').filter({ hasText: '기술 스택' }).click();

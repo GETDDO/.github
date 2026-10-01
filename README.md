@@ -16,7 +16,7 @@ python3 -m http.server 4173 --directory site
 
 - 메인: 1·2·3차 멘토링 → 발표 자료 선택. 2차는 통합 발표자료만 제공
 - 1차: 공통 표지 · 목차 · 이벤트 · 응모권 · 관리자 → 트랙별 아키텍처 · 질문 → 공통 감사합니다, 프론트 17장 / 백엔드 19장(개요·진행 상태·처리 흐름 포함)
-- 2차: 프로젝트·기능 요약 → 화면 디자인 → 기술 스택·시스템 아키텍처 → ERD → 시퀀스 → 진행 현황, 총 13장, `#/mentoring/2/combined/1`
+- 2차: 서비스 소개 → 사용자·관리자 기능 → 유사 서비스 분석·차별점 → 화면 디자인 → 기술 스택·시스템 아키텍처 → ERD → 시퀀스, 총 15장, `#/mentoring/2/combined/1`
 - 3차: 준비 중, 링크 및 직접 URL 접근 비활성화
 - 발표: 좌측 슬라이드 목록, 이전/다음, 전체 화면, 현재 슬라이드 주소 공유
 - 방향키 / Page Up·Down / Space: 이동, Home·End: 첫 장·마지막 장
@@ -66,20 +66,26 @@ python3 -m http.server 4173 --directory site
 
 2차 내용은 `site/round2.js`의 `secondRoundSlides`에서 편집합니다. 1차 통합 자료를 복사한 독립 데이터이므로 2차를 수정해도 1차에는 영향을 주지 않습니다. 차수에 없는 트랙은 메인에 표시하지 않습니다.
 
-2차는 1차의 개요·문제·해결 방향·차별점을 프로젝트 요약으로, 기능 요구사항·시연 범위를 한 장으로 합쳤습니다. 유사 서비스 분석과 별도 브랜드·마스코트·게임 컨셉 설명은 줄이고, 기술 스택 5장은 핵심 기술 1장으로 요약했습니다. 기존 처리 흐름 2장은 시퀀스 다이어그램 자리로 대체했습니다.
+2차는 만들려는 서비스와 대상 고객을 소개하고, 사용자·관리자 기능을 각각 한 장씩 설명합니다. 1차의 유사 서비스 분석과 GETDDO 차별점을 별도 페이지로 유지합니다. 기술 스택은 한 장으로 요약하고, 화면 디자인·시스템 아키텍처·ERD·시퀀스로 설계를 설명합니다. 시연 범위와 별도 진행 현황 페이지는 포함하지 않습니다.
 
-화면 디자인과 설계 이미지는 아직 미첨부 상태입니다. 완성한 이미지를 `site/assets/`에 저장한 뒤, `site/round2.js`의 해당 슬라이드에서 `src`를 실제 경로로 바꾸고 필요하면 `caption`을 입력합니다. `src: ''`일 때는 ‘추가 예정’ 안내만 표시합니다.
+시스템 아키텍처에는 제공받은 `getddo.drawio.png`를 원본 그대로 복사한 `site/assets/round2-architecture.png`를 반영했습니다. 이 페이지는 `layout: 'diagram'`으로 제목을 왼쪽에 배치해 세로로 긴 그림을 크게 표시합니다. 사용자·관리자 화면 디자인, ERD와 시퀀스 이미지는 추가 예정입니다. 완성한 이미지를 `site/assets/`에 저장한 뒤, `site/round2.js`의 해당 슬라이드에서 `src`를 실제 경로로 바꾸고 필요하면 `caption`을 입력합니다. `src: ''`일 때는 ‘추가 예정’ 안내만 표시합니다.
 
-| 페이지 | 삽입할 자료 | `src` 예시 |
+| 페이지 | 자료 | `src` 경로 (아키텍처 외 예시) |
 | --- | --- | --- |
-| 5 | 사용자 실제 화면 디자인 | `assets/round2-user-screens.png` |
-| 6 | 관리자 실제 화면 디자인 | `assets/round2-admin-screens.png` |
-| 8 | 시스템 아키텍처 | `assets/round2-architecture.svg` |
-| 9 | ERD | `assets/round2-erd.svg` |
-| 10 | 이벤트 응모 시퀀스 | `assets/round2-entry-sequence.svg` |
-| 11 | 추첨·결과 발표 시퀀스 | `assets/round2-draw-sequence.svg` |
+| 8 | 사용자 실제 화면 디자인 | `assets/round2-user-screens.png` |
+| 9 | 관리자 실제 화면 디자인 | `assets/round2-admin-screens.png` |
+| 11 | 시스템 아키텍처 (반영 완료) | `assets/round2-architecture.png` |
+| 12 | ERD | `assets/round2-erd.svg` |
+| 13 | 이벤트 응모 시퀀스 | `assets/round2-entry-sequence.svg` |
+| 14 | 추첨·결과 발표 시퀀스 | `assets/round2-draw-sequence.svg` |
 
 한 페이지에 담기 어려운 이미지는 장을 나누고 목차의 `target`도 함께 갱신합니다. 사용자·관리자 화면은 별도 페이지로, 응모와 추첨·발표 시퀀스도 별도 페이지로 유지해 가독성을 확보합니다.
+
+2차 비교 분석은 다음 공식 서비스 소개를 참고했습니다. 비교 표의 GETDDO 항목은 기획 방향이며, 다른 서비스에 유사 기능이 없다는 의미는 아닙니다. ‘구매 연계 경품 이벤트’는 구매·리뷰를 조건으로 하는 이벤트 유형을 뜻합니다.
+
+- [SKT T멤버십](https://sktmembership.tworld.co.kr/mps/pc-bff/benefitbrand/list-tab1.do): 제휴 할인·혜택과 멤버십 이벤트.
+- [캐시워크](https://cashwalk.com/): 걷기·챌린지를 통한 캐시 적립.
+- [이벤터스](https://event-us.kr/): 행사 개설·참가 신청·운영.
 
 3차는 트랙별로 내용과 공개 여부를 관리합니다. 예를 들어 3차 프론트엔드:
 

@@ -1161,6 +1161,30 @@ img {
   color:var(--muted);
   margin-top:10px;
 }
+/* A tall diagram uses the slide height, with its heading beside it. */
+.diagram-slide .slide-heading {
+  width:330px;
+  margin-top:150px;
+}
+.diagram-slide .slide-heading>p {
+  line-height:1.9;
+}
+.diagram-slide .slide-content {
+  position:absolute;
+  top:82px;
+  right:62px;
+  bottom:90px;
+  left:430px;
+  margin-top:0;
+}
+.diagram-slide .image-layout,
+.diagram-slide .image-layout img {
+  height:100%;
+}
+.diagram-slide .image-layout figcaption:empty {
+  display:none;
+}
+
 .deck-toolbar {
   height:65px;
   flex-shrink:0;
