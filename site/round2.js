@@ -14,7 +14,7 @@ export const secondRoundSlides = [
       { title: '유사 서비스·차별점', description: '서비스별 비교 · GETDDO의 특징', target: 5 },
       { title: '화면 디자인', description: '사용자 · 관리자 실제 화면', target: 7 },
       { title: '기술·데이터 설계', description: '기술 스택 · 아키텍처 · ERD', target: 9 },
-      { title: '사용자 흐름', description: '서비스 이용 전체 시퀀스', target: 12 },
+      { title: '사용자 흐름', description: '화면 이동 · 사용자 행동', target: 12 },
     ],
   },
   {
@@ -108,10 +108,10 @@ export const secondRoundSlides = [
     placeholder: 'ERD 이미지 추가 예정',
   },
   {
-    type: 'image', layout: 'sequence', title: '사용자 흐름 시퀀스', label: '06 / USER JOURNEY',
-    description: '둘러보기 → 응모권 획득(선택) → 이벤트 응모 → 발표 대기 → 당첨 결과 확인',
-    src: 'assets/round2-user-journey-sequence.svg',
-    alt: '사용자·GETDDO 서비스·관리자 사이의 전체 이용 흐름. 응모권 획득은 선택 단계이며, 이벤트 응모 후 관리자 발표 승인을 거쳐 알림과 당첨 결과를 확인합니다.', caption: '',
+    type: 'image', layout: 'journey', title: '사용자 이용 흐름', label: '06 / USER JOURNEY',
+    description: '홈에서 원하는 활동을 선택하고, 이벤트에 응모한 뒤 당첨 결과를 확인합니다.',
+    src: 'assets/round2-user-journey.svg',
+    alt: '홈에서 출석·미션·게임으로 응모권을 모으거나 바로 이벤트를 선택합니다. 상세 확인과 응모 후 내 응모 내역에서 발표를 기다리고, 알림함 또는 이벤트에서 당첨 결과를 확인합니다.', caption: '',
   },
   { type: 'ending', title: '감사합니다', label: 'GETDDO', description: '2차 멘토링' },
 ];

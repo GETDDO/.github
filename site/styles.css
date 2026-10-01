@@ -1185,24 +1185,24 @@ img {
   display:none;
 }
 
-/* The whole user sequence stays readable on one landscape slide. */
-.sequence-slide .slide-heading {
+/* The whole user journey stays readable on one landscape slide. */
+.journey-slide .slide-heading {
   margin-top:8px;
 }
-.sequence-slide .slide-heading h1 {
+.journey-slide .slide-heading h1 {
   font-size:32px;
 }
-.sequence-slide .slide-heading>p {
+.journey-slide .slide-heading>p {
   margin-top:8px;
   font-size:16px;
 }
-.sequence-slide .slide-content {
+.journey-slide .slide-content {
   margin-top:14px;
 }
-.sequence-slide .image-layout img {
+.journey-slide .image-layout img {
   height:470px;
 }
-.sequence-slide .image-layout figcaption:empty {
+.journey-slide .image-layout figcaption:empty {
   display:none;
 }
 
