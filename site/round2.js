@@ -14,7 +14,7 @@ export const secondRoundSlides = [
       { title: '유사 서비스·차별점', description: '서비스별 비교 · GETDDO의 특징', target: 5 },
       { title: '화면 디자인', description: '사용자 · 관리자 실제 화면', target: 7 },
       { title: '기술·데이터 설계', description: '기술 스택 · 아키텍처 · ERD', target: 9 },
-      { title: '시퀀스 다이어그램', description: '응모 · 추첨 및 결과 발표', target: 12 },
+      { title: '사용자 흐름', description: '서비스 이용 전체 시퀀스', target: 12 },
     ],
   },
   {
@@ -108,16 +108,10 @@ export const secondRoundSlides = [
     placeholder: 'ERD 이미지 추가 예정',
   },
   {
-    type: 'image', title: '시퀀스 · 이벤트 응모', label: '06 / ENTRY SEQUENCE',
-    description: '응모 요청부터 처리 결과까지 · 호출 순서·트랜잭션 경계·중복 및 실패 처리',
-    src: '', alt: '이벤트 응모 시퀀스 다이어그램', caption: '',
-    placeholder: '응모 시퀀스 다이어그램 추가 예정',
-  },
-  {
-    type: 'image', title: '시퀀스 · 추첨 및 결과 발표', label: '06 / DRAW SEQUENCE',
-    description: '대상 확정 → 추첨 → 관리자 승인 → 결과 공개·알림',
-    src: '', alt: '추첨 및 결과 발표 시퀀스 다이어그램', caption: '',
-    placeholder: '추첨·발표 시퀀스 다이어그램 추가 예정',
+    type: 'image', layout: 'sequence', title: '사용자 흐름 시퀀스', label: '06 / USER JOURNEY',
+    description: '둘러보기 → 응모권 획득(선택) → 이벤트 응모 → 발표 대기 → 당첨 결과 확인',
+    src: 'assets/round2-user-journey-sequence.svg',
+    alt: '사용자·GETDDO 서비스·관리자 사이의 전체 이용 흐름. 응모권 획득은 선택 단계이며, 이벤트 응모 후 관리자 발표 승인을 거쳐 알림과 당첨 결과를 확인합니다.', caption: '',
   },
   { type: 'ending', title: '감사합니다', label: 'GETDDO', description: '2차 멘토링' },
 ];
